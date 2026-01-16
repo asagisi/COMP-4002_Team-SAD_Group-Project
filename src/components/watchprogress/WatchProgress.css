@@ -1,0 +1,26 @@
+.watch-progress ul {
+  list-style: none;
+}
+
+.watch-progress li {
+  padding: 0.1rem 1rem;
+  margin-bottom: 0.75rem;
+  border-left: 6px solid;
+  background-color: #000000;
+  border-radius: 4px;
+}
+
+.status-not-started {
+  border-left-color: #FF0000 !important;
+  font-weight: bold;
+}
+
+.status-watching {
+  border-left-color: #FFA500 !important;
+  font-weight: bold;
+}
+
+.status-finished {
+  border-left-color: #008000 !important;
+  font-weight: bold;
+}
