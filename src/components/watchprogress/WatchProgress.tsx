@@ -37,13 +37,19 @@ export const WatchProgress: React.FC = () => {
         },
     ];
 
+    const statusClass = {
+        "Not Started": "status-not-started",
+        "Watching": "status-watching",
+        "Finished": "status-finished",
+    };
+
     return (
         <section className="watch-progress">
             <h2>My Watch Progress</h2>
             <ul>
                 {progress.map(progress => (
-                    <li key={progress.id}>
-                        {progress.title} - {progress.status} (S{progress.currentSeason}:Ep{progress.currentEpisode}\S{progress.totalSeasons})
+                    <li key={progress.id} className={statusClass[progress.status]}>
+                        {progress.title} - {progress.status} (S{progress.currentSeason}:Ep{progress.currentEpisode}/S{progress.totalSeasons})
                     </li>
                 ))}
             </ul>
