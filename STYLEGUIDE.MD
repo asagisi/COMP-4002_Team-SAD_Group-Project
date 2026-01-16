@@ -14,8 +14,12 @@ We're going with a dark grayscale palette, avoiding using extra colour for now.
 
 ### Fonts
 
-- Arial
-- Times New Roman
-- Roboto
+font-family: "Segoe UI", Arial, Tahoma, Verdana, sans-serif;
 
 ### Sizes
+
+Type         Size  Usage                              
+
+Heading      24px  Page titles, section headers 
+Body         16px  Default text               
+Small        14px  Secondary text, labels, etc. 
