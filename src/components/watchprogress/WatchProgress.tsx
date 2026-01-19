@@ -1,4 +1,5 @@
 import React from 'react';
+import './WatchProgress.css';
 
 type WatchProgress = {
   id: number;
