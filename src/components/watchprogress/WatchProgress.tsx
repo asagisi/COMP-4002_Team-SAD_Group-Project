@@ -11,7 +11,7 @@ type WatchProgress = {
 };
 
 export const WatchProgress: React.FC = () => {   
-    const progress = [
+    const progress: WatchProgress[] = [
         {
           id: 1,
           title: "South Park",
@@ -38,7 +38,7 @@ export const WatchProgress: React.FC = () => {
         },
     ];
 
-    const statusClass: Record<string, string> = {
+    const statusClass: Record<WatchProgress["status"], string> = {
         "Not Started": "status-not-started",
         "Watching": "status-watching",
         "Finished": "status-finished",
