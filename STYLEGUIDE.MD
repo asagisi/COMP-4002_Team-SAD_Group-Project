@@ -1,12 +1,25 @@
-## The colour palette of the application (three to five colours, their names and hex values) that should be used throughout the application.
-- red #FF0000
-- blue #0000FF
-- green #008000
-- orange #FFA500
-- purple #800080
+# Style Guide
 
-## The font(s) to be used throughout the application and their respective sizes (three at minimum).
+## Colour Palette
 
-- Arial
-- Times New Roman
-- Roboto
+Background Primary - Main app background  - #121212 
+Background Secondary - Cards, panels, modals  - #1E1E1E 
+Tertiary - Dividers, Borders - #2C2C2C 
+Text Primary - Main text  - #E0E0E0 
+Text Secondary - Secondary text  - #A0A0A0 
+
+We're going with a dark grayscale palette, avoiding using extra colour for now.
+
+## Typography
+
+### Fonts
+
+font-family: "Segoe UI", Arial, Tahoma, Verdana, sans-serif;
+
+### Sizes
+
+Type         Size  Usage                              
+
+Heading      24px  Page titles, section headers 
+Body         16px  Default text               
+Small        14px  Secondary text, labels, etc. 
