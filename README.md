@@ -5,11 +5,26 @@ Project Team
 - Team Name: Team SAD
 - team members: Angelito, Dennis, Seth
 
-Project General Description: 
+# Project General Description: 
 
 - "As a user, I want to be able to keep a watchlist of my favourite shows, so that I can remember what I want to watch later on."
 - "As a user, I want to create an account so that all of my information and lists of show is saved."
 - "As a user, I want track my progress on what I am watching, so that I know where I am if I forget."
+
+# Kanban items Sprint 1
+
+- G.2: Organize your group (all members)
+- G.2: Pick a theme (all members)
+- T.2: project intialization (Angelito)
+- T.1: set up project git repo (Angelito)
+- I.1: High level component (Angelito, Seth, Dennis)
+- T.3: Project Readme (Angelito, Seth, Dennis)
+- T.5: app stylesheet and style guide (Seth)
+- I.2 styling (seth)
+- T.4: app integration (Dennis, seth, Angelito)
+- T.6: Team Vercel account/management (Angelito)
+
+
 
 # React + TypeScript + Vite
 
