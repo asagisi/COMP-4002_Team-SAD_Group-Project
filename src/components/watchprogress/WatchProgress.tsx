@@ -38,7 +38,7 @@ export const WatchProgress: React.FC = () => {
         },
     ];
 
-    const statusClass = {
+    const statusClass: Record<string, string> = {
         "Not Started": "status-not-started",
         "Watching": "status-watching",
         "Finished": "status-finished",
