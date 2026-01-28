@@ -1,11 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const NavBar: React.FC = () => {
   const navLinks = [
     { id: 1, label: 'Home', href: '/' },
-    { id: 2, label: 'My Shows', href: '/shows' },
-    { id: 3, label: 'Watchlist', href: '/watchlist' },
-    { id: 4, label: 'Profile', href: '/profile' },
+    { id: 2, label: 'Show list', href: '/showlist' },
+    { id: 3, label: 'My Shows', href: '/shows' },
+    { id: 4, label: 'Watchlist', href: '/watchlist' },
+    { id: 5, label: 'Profile', href: '/profile' },
   ];
 
   return (
@@ -14,7 +16,7 @@ export const NavBar: React.FC = () => {
         <ul>
           {navLinks.map(link => (
             <li key={link.id}>
-              <a href={link.href}>{link.label}</a>
+              <Link to={link.href}>{link.label}</Link>
             </li>
           ))}
         </ul>
