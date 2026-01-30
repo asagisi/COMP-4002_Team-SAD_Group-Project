@@ -1,8 +1,15 @@
 import React from 'react';
+import useState from 'react';
 import './ShowList.css'; 
 
+interface Show {
+    id: number;
+    title: string;
+    genre: string;
+}
+
 export const ShowList: React.FC = () => {   // react functional component
-    const shows = [
+    const shows: Show[] = [
         { id: 1, title: 'Better Call Saul', genre: 'Drama' },
         { id: 2, title: 'Stranger Things', genre: 'Sci-Fi' },
         { id: 3, title: 'Family Guy', genre: 'Comedy' },
