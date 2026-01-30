@@ -1,7 +1,21 @@
 .show-list li {
-    margin: 1rem 0;
+    list-style: none;
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--text-secondary);
+    padding: 0.5rem;
+    background-color: var(--bg-secondary);
     }
 
 .show-list .section-header {
     margin-bottom: 2rem;  
+    }
+
+.show-list input {
+    padding: 0.5rem;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--text-secondary);
+    border-radius: 4px;
+    font-size: 1rem;
     }
