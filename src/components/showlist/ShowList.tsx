@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ShowList.css'; 
-import { shows } from '../../data/shows';
+import { shows } from '../data/shows';
 
 
 export const ShowList: React.FC = () => {   // react functional component
