@@ -1,0 +1,10 @@
+.Home {
+  text-align: center;
+  padding: 2rem;
+}
+
+.Home .tvMan {
+  max-width: 400px;
+  height: auto;
+  margin-top: 1rem;
+}
