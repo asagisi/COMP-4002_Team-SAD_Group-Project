@@ -5,7 +5,7 @@ export const NavBar: React.FC = () => {
   const navLinks = [
     { id: 1, label: 'Home', href: '/' },
     { id: 2, label: 'Show list', href: '/showlist' },
-    { id: 3, label: 'My Shows', href: '/shows' },
+    { id: 3, label: 'My Shows', href: '/myshows' },
     { id: 4, label: 'Watchlist', href: '/watchlist' },
     { id: 5, label: 'Profile', href: '/profile' },
   ];

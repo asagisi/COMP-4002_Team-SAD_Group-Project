@@ -1,0 +1,39 @@
+.my-shows-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.my-shows-list li {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.my-shows-list li strong {
+  flex: 0 0 auto;
+}
+
+.my-shows-list li div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.my-shows-list select,
+.my-shows-list button {
+  padding: 0.25rem 0.5rem;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--text-secondary);
+  border-radius: 4px;
+}
+
+.my-shows-list button:hover {
+  background-color: var(--bg-primary);
+}
