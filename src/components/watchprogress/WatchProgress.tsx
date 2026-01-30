@@ -57,13 +57,14 @@ export const WatchProgress: React.FC = () => {
                     </>
                   )}
                 </span>
+                <div>
+                  <button onClick={() => setEditId(item.id)}>Edit</button>
 
-                <button onClick={() => setEditId(item.id)}>Edit</button>
-
-                <WatchProgressDelete
-                  title={item.title}
-                  onDelete={() => handleDelete(item.id)}
-                />
+                  <WatchProgressDelete
+                    title={item.title}
+                    onDelete={() => handleDelete(item.id)}
+                  />
+                </div>
               </li>
             )
           )}

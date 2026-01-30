@@ -28,42 +28,52 @@ export const WatchProgressEdit: React.FC<Props> = ({
 
   return (
     <li>
-      <strong>{item.title} </strong>
-      <label>
-        Season
-        <input
-          type="number"
-          min={1}
-          value={currentSeason}
-          onChange={edit => setCurrentSeason(Number(edit.target.value))}
-        />
-      </label>
-      <label>
-        Episode
-        <input
-          type="number"
-          min={1}
-          value={currentEpisode}
-          onChange={edit => setCurrentEpisode(Number(edit.target.value))}
-        />
-      </label>
-      <label>
-        Status
-        <select
-          value={status}
-          onChange={edit =>
-            setStatus(
-              edit.target.value as WatchProgressType["status"]
-            )
-          }
-        >
-          <option value="Not Started">Not Started</option>
-          <option value="Watching">Watching</option>
-          <option value="Finished">Finished</option>
-        </select>
-      </label>
-      <button onClick={handleSave}>Save</button>
-      <button onClick={onCancel}>Cancel</button>
+      <div>
+        <strong>{item.title} </strong>
+      </div>
+      <div>
+        <label>
+          Season
+          <input
+            type="number"
+            min={1}
+            value={currentSeason}
+            onChange={edit => setCurrentSeason(Number(edit.target.value))}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Episode
+          <input
+            type="number"
+            min={1}
+            value={currentEpisode}
+            onChange={edit => setCurrentEpisode(Number(edit.target.value))}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Status
+          <select
+            value={status}
+            onChange={edit =>
+              setStatus(
+                edit.target.value as WatchProgressType["status"]
+              )
+            }
+          >
+            <option value="Not Started">Not Started</option>
+            <option value="Watching">Watching</option>
+            <option value="Finished">Finished</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <button onClick={handleSave}>Save</button>
+        <button onClick={onCancel}>Cancel</button>
+      </div>
     </li>
   );
 };
