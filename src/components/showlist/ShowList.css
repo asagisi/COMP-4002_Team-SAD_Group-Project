@@ -1,5 +1,8 @@
-.show-list li {
-    margin: 1rem 0;
+.show-list ul {
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--text-secondary);
+    padding: 0.5rem;
+    background-color: var(--bg-secondary);
     }
 
 .show-list .section-header {

@@ -36,7 +36,12 @@ export const ShowList: React.FC = () => {   // react functional component
         { id: 23, title: "House of The Dragon", genre: "Fantasy", year: 2022},
         { id: 24, title: "The Pitt", genre: " Medical Drama", year: 2025},
         { id: 25, title: "The Last of Us", genre: "Post-apocalyptic", year: 2023},
-        { id: 26, title: "House M.D", genre: "Medical Drama", year: 2004}
+        { id: 26, title: "House M.D", genre: "Medical Drama", year: 2004},
+        { id: 27, title: "Invincible", genre: "Action", year: 2021},
+        { id: 28, title: "The Boys", genre: "Action", year: 2019},
+        { id: 29, title: "Shameless", genre: "Comedy-drama", year: 2011},
+        { id: 30, title: "Pluribus", genre: "Sci-Fi", year: 2025},
+        { id: 31, title: "My Hero Academia", genre: "Action", year: 2016},
     ]);
     
     
@@ -60,9 +65,9 @@ export const ShowList: React.FC = () => {   // react functional component
             />
             <ul>
                 {filteredShow.map(show => (
-                    <li key={show.id}>
+                    <ul key={show.id}>
                         <strong>{show.title}</strong> - {show.genre} ({show.year})
-                    </li>
+                    </ul>
                 ))}
             </ul>
         </section>
