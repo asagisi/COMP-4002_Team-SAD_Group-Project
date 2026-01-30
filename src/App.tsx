@@ -1,30 +1,28 @@
 import './App.css'
-import { WatchProgress } from './components/watchprogress/WatchProgress'
-import { ShowList } from './components/showlist/showlist'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Header } from './components/header/header'
+import { Home } from './pages/Home'
+import { ShowListPage } from './pages/ShowListPage'
+import { WatchProgressPage } from './pages/WatchProgressPage'
+import { Footer } from './components/footer/footer' 
+
+
 
 function App() {
   return (
-    <div className="App">
-
-      <main>
-      <WatchProgress/>
-      </main>
-
-    </div>
-      <header> 
-        <h1> TV show collection</h1>
-
-      </header>
-
-      <main>
-      <ShowList />
-      </main>
-
-      <footer>
-        <p> Team SAD: Seth Moran, Angelito Sagisi, Dennis Guiboche</p>
-      </footer>
-    </div>
-
+    <Router>
+      <div className="App">
+        <Header/>
+        <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/showlist" element={<ShowListPage />} />
+          <Route path="/watchlist" element={<WatchProgressPage />} />
+        </Routes>
+        </main>
+        <Footer/>
+      </div>
+    </Router>
   )
 }
 

@@ -1,0 +1,31 @@
+.Header {
+  text-align: center;
+  padding: 2rem;
+}   
+
+/* this will handle the horizontal layout of the navbar */
+.nav-bar nav ul {
+  list-style: none;   
+  padding: 0;             
+  margin: 0;              
+  display: flex;          
+  justify-content: center; 
+  gap: 2rem;              
+}
+
+/* this is for the list items inside the navbar */
+.nav-bar nav li {
+  display: inline;        
+}
+
+/* this is for the links inside the navbar */
+.nav-bar nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+/* and this is for the hover effect on the links */
+.nav-bar nav a:hover {
+  text-decoration: underline;
+}
