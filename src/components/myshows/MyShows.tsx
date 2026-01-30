@@ -1,5 +1,6 @@
 import React from "react";
 import { WatchProgress } from "../data/WatchProgressList";
+import "./MyShows.css";
 
 export const MyShowsList: React.FC = () => {
   const completedShows = WatchProgress.filter(
@@ -19,7 +20,7 @@ export const MyShowsList: React.FC = () => {
 
               <div>
                 <label>
-                  Rating:
+                  Rating: 
                   <select defaultValue={5}>
                     <option value={1}>1</option>
                     <option value={2}>2</option>
