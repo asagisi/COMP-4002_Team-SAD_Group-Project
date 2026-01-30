@@ -1,4 +1,5 @@
-.show-list ul {
+.show-list li {
+    list-style: none;
     margin-bottom: 0.75rem;
     border: 1px solid var(--text-secondary);
     padding: 0.5rem;

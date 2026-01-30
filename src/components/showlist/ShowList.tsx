@@ -65,9 +65,9 @@ export const ShowList: React.FC = () => {   // react functional component
             />
             <ul>
                 {filteredShow.map(show => (
-                    <ul key={show.id}>
+                    <li key={show.id}>
                         <strong>{show.title}</strong> - {show.genre} ({show.year})
-                    </ul>
+                    </li>
                 ))}
             </ul>
         </section>
