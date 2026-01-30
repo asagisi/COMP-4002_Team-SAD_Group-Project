@@ -1,59 +1,75 @@
-import React from 'react';
-import './WatchProgress.css';
+import React, { useState } from "react";
+import "./WatchProgress.css";
+import type { WatchProgress as WatchProgressType } from "../types/WatchProgressType";
+import { WatchProgressAdd } from "./WatchProgressAdd";
+import { WatchProgressEdit } from "./WatchProgressEdit";
+import { WatchProgressDelete } from "./WatchProgressDelete";
+import { WatchProgress as WatchProgressList } from "../data/WatchProgressList";
 
-type WatchProgress = {
-  id: number;
-  title: string;
-  currentSeason: number;
-  currentEpisode: number;
-  totalSeasons: number;
-  status: "Not Started" | "Watching" | "Finished";
-};
+export const WatchProgress: React.FC = () => {
+  const [progress, setProgress] = useState<WatchProgressType[]>(WatchProgressList);
+  const [editId, setEditId] = useState<number | null>(null);
 
-export const WatchProgress: React.FC = () => {   
-    const progress: WatchProgress[] = [
-        {
-          id: 1,
-          title: "South Park",
-          currentSeason: 1,
-          currentEpisode: 1,
-          totalSeasons: 28,
-          status: "Not Started",
-        },
-        {
-          id: 2,
-          title: "Dr. House",
-          currentSeason: 4,
-          currentEpisode: 9,
-          totalSeasons: 8,
-          status: "Watching",
-        },
-        {
-          id: 3,
-          title: "Dragon Ball Z",
-          currentSeason: 9,
-          currentEpisode: 38,
-          totalSeasons: 9,
-          status: "Finished",
-        },
-    ];
+  const statusClass: Record<WatchProgressType["status"], string> = {
+    "Not Started": "status-not-started",
+    "Watching": "status-watching",
+    "Finished": "status-finished",
+  };
 
-    const statusClass: Record<WatchProgress["status"], string> = {
-        "Not Started": "status-not-started",
-        "Watching": "status-watching",
-        "Finished": "status-finished",
-    };
-
-    return (
-        <section className="watch-progress">
-            <h2>My Watch Progress</h2>
-            <ul>
-                {progress.map(progress => (
-                    <li key={progress.id} className={statusClass[progress.status]}>
-                        {progress.title} - {progress.status} (S{progress.currentSeason}:Ep{progress.currentEpisode}/S{progress.totalSeasons})
-                    </li>
-                ))}
-            </ul>
-        </section>
+  const handleSave = (update: WatchProgressType) => {
+    setProgress(prev =>
+      prev.map(item => (item.id === update.id ? update : item))
     );
+    setEditId(null);
+  };
+
+  const handleDelete = (id: number) => {
+    setProgress(prev => prev.filter(item => item.id !== id));
+  };
+
+  return (
+    <section className="watch-progress">
+      <h2>My Watch Progress</h2>
+
+      <section className="add-show">
+        <WatchProgressAdd progress={progress} setProgress={setProgress} />
+      </section>
+
+      <section className="watch-list">
+        <ul>
+          {progress.map(item =>
+            editId === item.id ? (
+              <WatchProgressEdit
+                key={item.id}
+                item={item}
+                onSave={handleSave}
+                onCancel={() => setEditId(null)}
+              />
+            ) : (
+              <li key={item.id} className={statusClass[item.status]}>
+                <span>
+                  {item.title} – {item.status}
+                  {item.status !== "Not Started" && (
+                    <>
+                      {" "}
+                      (S{item.currentSeason}:Ep{item.currentEpisode}/S
+                      {item.totalSeasons})
+                    </>
+                  )}
+                </span>
+                <div>
+                  <button onClick={() => setEditId(item.id)}>Edit</button>
+
+                  <WatchProgressDelete
+                    title={item.title}
+                    onDelete={() => handleDelete(item.id)}
+                  />
+                </div>
+              </li>
+            )
+          )}
+        </ul>
+      </section>
+    </section>
+  );
 };
