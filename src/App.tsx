@@ -1,5 +1,4 @@
 import './App.css'
-import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Header } from './components/header/header'
 import { Home } from './pages/Home'
