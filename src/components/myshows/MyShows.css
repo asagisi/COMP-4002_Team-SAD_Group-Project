@@ -8,10 +8,17 @@
   padding: 1rem;
   background-color: var(--bg-secondary);
   border-radius: 4px;
+  border: 2px solid transparent;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
+}
+
+.my-shows-list li.favourite {
+  
+  border-color: gold;
+  background-color: var(--bg-tertiary);
 }
 
 .my-shows-list li strong {
