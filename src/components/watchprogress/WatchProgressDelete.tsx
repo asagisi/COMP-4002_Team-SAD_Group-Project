@@ -21,7 +21,7 @@ export const WatchProgressDelete: React.FC<Props> = ({
 
       {confirm && (
         <span className="delete-confirm">
-            Are you sure?
+          Are you sure you want to delete progress on {title}?
           <button onClick={onDelete}>
             Yes
           </button>
