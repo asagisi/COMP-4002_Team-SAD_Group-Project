@@ -1,29 +1,36 @@
-import React from "react";
-import "./WatchProgress.css";
+import { useState } from "react";
 import type { WatchProgress as WatchProgressType } from "../types/WatchProgressType";
 import { WatchProgress as WatchProgressList } from "../data/WatchProgressList";
 
-export const WatchProgress: React.FC = () => {
+export const useWatchProgress = () => {
+  const [progress, setProgress] =
+    useState<WatchProgressType[]>(WatchProgressList);
+  const [editId, setEditId] = useState<number | null>(null);
+
   const statusClass: Record<WatchProgressType["status"], string> = {
     "Not Started": "status-not-started",
     "Watching": "status-watching",
     "Finished": "status-finished",
   };
 
-  return (
-    <section className="watch-progress">
-      <h2>My Watch Progress</h2>
-      <ul>
-        {WatchProgressList.map(item => (
-          <li
-            key={item.id}
-            className={statusClass[item.status]}
-          >
-            {item.title} – {item.status}{" "}
-            (S{item.currentSeason}:Ep{item.currentEpisode}/S{item.totalSeasons})
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
+  const handleSave = (update: WatchProgressType) => {
+    setProgress(prev =>
+      prev.map(item => (item.id === update.id ? update : item))
+    );
+    setEditId(null);
+  };
+
+  const handleDelete = (id: number) => {
+    setProgress(prev => prev.filter(item => item.id !== id));
+  };
+
+  return {
+    progress,
+    setProgress,
+    editId,
+    setEditId,
+    statusClass,
+    handleSave,
+    handleDelete,
+  };
 };
