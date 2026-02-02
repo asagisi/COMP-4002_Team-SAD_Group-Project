@@ -1,59 +1,36 @@
-import React from 'react';
-import './WatchProgress.css';
+import { useState } from "react";
+import type { WatchProgress as WatchProgressType } from "../types/WatchProgressType";
+import { WatchProgress as WatchProgressList } from "../data/WatchProgressList";
 
-type WatchProgress = {
-  id: number;
-  title: string;
-  currentSeason: number;
-  currentEpisode: number;
-  totalSeasons: number;
-  status: "Not Started" | "Watching" | "Finished";
-};
+export const useWatchProgress = () => {
+  const [progress, setProgress] =
+    useState<WatchProgressType[]>(WatchProgressList);
+  const [editId, setEditId] = useState<number | null>(null);
 
-export const WatchProgress: React.FC = () => {   
-    const progress: WatchProgress[] = [
-        {
-          id: 1,
-          title: "South Park",
-          currentSeason: 1,
-          currentEpisode: 1,
-          totalSeasons: 28,
-          status: "Not Started",
-        },
-        {
-          id: 2,
-          title: "Dr. House",
-          currentSeason: 4,
-          currentEpisode: 9,
-          totalSeasons: 8,
-          status: "Watching",
-        },
-        {
-          id: 3,
-          title: "Dragon Ball Z",
-          currentSeason: 9,
-          currentEpisode: 38,
-          totalSeasons: 9,
-          status: "Finished",
-        },
-    ];
+  const statusClass: Record<WatchProgressType["status"], string> = {
+    "Not Started": "status-not-started",
+    "Watching": "status-watching",
+    "Finished": "status-finished",
+  };
 
-    const statusClass: Record<WatchProgress["status"], string> = {
-        "Not Started": "status-not-started",
-        "Watching": "status-watching",
-        "Finished": "status-finished",
-    };
-
-    return (
-        <section className="watch-progress">
-            <h2>My Watch Progress</h2>
-            <ul>
-                {progress.map(progress => (
-                    <li key={progress.id} className={statusClass[progress.status]}>
-                        {progress.title} - {progress.status} (S{progress.currentSeason}:Ep{progress.currentEpisode}/S{progress.totalSeasons})
-                    </li>
-                ))}
-            </ul>
-        </section>
+  const handleSave = (update: WatchProgressType) => {
+    setProgress(prev =>
+      prev.map(item => (item.id === update.id ? update : item))
     );
+    setEditId(null);
+  };
+
+  const handleDelete = (id: number) => {
+    setProgress(prev => prev.filter(item => item.id !== id));
+  };
+
+  return {
+    progress,
+    setProgress,
+    editId,
+    setEditId,
+    statusClass,
+    handleSave,
+    handleDelete,
+  };
 };
