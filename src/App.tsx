@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Header } from './components/header/header'
 import { Home } from './pages/Home'
 import { ShowListPage } from './pages/ShowListPage'
+import { MyShowsPage } from './pages/MyShows'
 import { WatchProgressPage } from './pages/WatchProgressPage'
 import { Footer } from './components/footer/footer' 
+
 
 
 
@@ -17,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/showlist" element={<ShowListPage />} />
+          <Route path="/myshows" element={<MyShowsPage />} />
           <Route path="/watchlist" element={<WatchProgressPage />} />
         </Routes>
         </main>
