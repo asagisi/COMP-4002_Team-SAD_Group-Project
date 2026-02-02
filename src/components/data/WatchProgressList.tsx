@@ -3,7 +3,7 @@ import type { WatchProgress as WatchProgressType} from "../types/WatchProgressTy
 export const WatchProgress: WatchProgressType[] = [
   {
     id: 1,
-    title: "South Park",
+    showId: 3,
     currentSeason: 1,
     currentEpisode: 1,
     totalSeasons: 28,
@@ -11,7 +11,7 @@ export const WatchProgress: WatchProgressType[] = [
   },
   {
     id: 2,
-    title: "Dr. House",
+    showId: 26,
     currentSeason: 4,
     currentEpisode: 9,
     totalSeasons: 8,
@@ -19,7 +19,7 @@ export const WatchProgress: WatchProgressType[] = [
   },
   {
     id: 3,
-    title: "Dragon Ball Z",
+    showId: 22,
     currentSeason: 9,
     currentEpisode: 38,
     totalSeasons: 9,

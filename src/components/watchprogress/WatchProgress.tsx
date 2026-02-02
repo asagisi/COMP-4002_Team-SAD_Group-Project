@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import type { WatchProgress as WatchProgressType } from "../types/WatchProgressType";
 import { WatchProgress as WatchProgressList } from "../data/WatchProgressList";
+import { shows } from "../data/shows";
 
 export const useWatchProgress = () => {
-  const [progress, setProgress] =
-    useState<WatchProgressType[]>(WatchProgressList);
+  const [progress, setProgress] = useState<WatchProgressType[]>(WatchProgressList);
   const [editId, setEditId] = useState<number | null>(null);
 
   const statusClass: Record<WatchProgressType["status"], string> = {
@@ -12,6 +12,16 @@ export const useWatchProgress = () => {
     "Watching": "status-watching",
     "Finished": "status-finished",
   };
+
+  const showTitle = useMemo(() => {
+    return progress.map(item => {
+      const show = shows.find(show => show.id === item.showId);
+      return {
+        ...item,
+        title: show?.title ?? "Unknown",
+      };
+    });
+  }, [progress]);
 
   const handleSave = (update: WatchProgressType) => {
     setProgress(prev =>
@@ -25,7 +35,7 @@ export const useWatchProgress = () => {
   };
 
   return {
-    progress,
+    progress: showTitle,
     setProgress,
     editId,
     setEditId,
