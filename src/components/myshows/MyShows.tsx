@@ -13,12 +13,14 @@ export const MyShowsList: React.FC<ShowProps> = ({ ratings, setRatings }) => {
   );
 
   const handleRatingChange = (showId: number, value: number) => {
-
     setRatings(prev => ({
       ...prev,
       [showId]: value,
     }));
   };
+
+  const rating = (showId: number) => ratings[showId] ?? 5;
+  const stars = (n: number) => "⭐".repeat(n);
 
   return (
     <section className="my-shows-list">
@@ -31,11 +33,15 @@ export const MyShowsList: React.FC<ShowProps> = ({ ratings, setRatings }) => {
             <li key={show.id}>
               <strong>{show.title}</strong>
 
-              <div>
+              <span className="my-shows-stars" aria-label={`${rating(show.id)} out of 5 stars`}>
+                {stars(rating(show.id))}
+              </span>
+
+              <div className="my-shows-rating-controls">
                 <label htmlFor={`rating-${show.id}`}>Rating: </label>
-                  <select
+                <select
                   id={`rating-${show.id}`}
-                  value={ratings[show.id] ?? 5}
+                  value={rating(show.id)}
                   onChange={(e) =>
                     handleRatingChange(show.id, Number(e.target.value))
                   }
@@ -46,11 +52,6 @@ export const MyShowsList: React.FC<ShowProps> = ({ ratings, setRatings }) => {
                     </option>
                   ))}
                 </select>
-
-                <p>
-                  Current rating: {ratings[show.id] ?? 5}
-                </p>
- 
               </div>
             </li>
           ))}

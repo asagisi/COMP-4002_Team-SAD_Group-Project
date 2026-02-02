@@ -5,12 +5,11 @@ export const MyShowsPage: React.FC = () => {
   const [ratings, setRatings] = useState<Record<number, number>>({});
 
   return (
-    <main className="my-shows-page">
-      <header>
+    
+      <div>
         <h1>My Shows</h1>
-      </header>
-
-      <MyShowsList ratings={ratings} setRatings={setRatings}/>
-    </main>
+        <MyShowsList ratings={ratings} setRatings={setRatings}/>
+      </div>
+    
   );
 };

@@ -18,11 +18,16 @@
   flex: 0 0 auto;
 }
 
-.my-shows-list li div {
+.my-shows-stars {
+  flex: 1;
+  text-align: center;
+}
+
+.my-shows-rating {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-left: auto;
+  flex: 0 0 auto;
 }
 
 .my-shows-list select,
