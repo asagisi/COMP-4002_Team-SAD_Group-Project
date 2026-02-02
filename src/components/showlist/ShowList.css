@@ -19,3 +19,17 @@
     border-radius: 4px;
     font-size: 1rem;
     }
+
+.show-list button {
+    margin-left: 1rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--text-secondary);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+.show-list button:hover {
+    background-color: var(--bg-secondary);
+}

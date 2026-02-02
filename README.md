@@ -24,6 +24,15 @@ Project Team
 - T.4: app integration (Dennis, seth, Angelito)
 - T.6: Team Vercel account/management (Angelito)
 
+# Kanban items Sprint 2
+
+- T.1: Multi-page Navigation (Dennis)
+- T.2: Navigation Interface (Seth, Dennis)
+- T.3: Shared state across pages
+- I.1 Feature Page (All members)
+- I.2: Form Component (All members)
+- I.3: Element Addition/Removal (All members)
+
 
 
 # React + TypeScript + Vite
