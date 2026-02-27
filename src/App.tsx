@@ -7,7 +7,7 @@ import { ShowListPage } from './pages/ShowListPage'
 import { MyShowsPage } from './pages/MyShows'
 import { WatchProgressPage } from './pages/WatchProgressPage'
 import { Footer } from './components/footer/footer'
-import { type Show } from './components/data/shows'
+import { type Show } from './types/Show'
 
 
 

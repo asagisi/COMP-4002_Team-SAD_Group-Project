@@ -1,11 +1,6 @@
-export interface Show {
-    id: number;
-    title: string;
-    genre: string;
-    year?: number;
-}
-    
-export const shows: Show[] = [ 
+import type { Show } from "../../types/Show";
+
+export  const shows: Show[] = [ 
     { id: 1, title: 'Better Call Saul', genre: 'Drama', year: 2015 },
     { id: 2, title: 'Stranger Things', genre: 'Sci-Fi', year: 2016 },
     { id: 3, title: 'Family Guy', genre: 'Comedy', year: 1999 },

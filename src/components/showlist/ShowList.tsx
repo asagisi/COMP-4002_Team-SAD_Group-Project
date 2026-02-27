@@ -9,7 +9,7 @@ export const ShowList: React.FC = () => {   // react functional component
 
     const [searchShow, setSearchShow] = useState('');
     const [hiddenShows, setHiddenShows] = useState<Set<number>>(new Set());
-    const [showHidden, setShowHidden] = useState(false);
+    const [showHidden, setShowHidden] = useState(false); // MOVE THIS INTO HOOKS
 
     const filteredShow = shows.filter(show =>
         show.title.toLowerCase().includes(searchShow.toLowerCase()) &&
