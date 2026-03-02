@@ -1,20 +1,14 @@
 import { useState } from 'react';
-import { type Show } from '../../types/Show';
 import { showRepository } from '../../repositories/showRepository';
 import './FavouriteShow.css';
-
-interface FavouriteShowSelectorProps {
-    currentFavourite: Show | null;
-    setCurrentFavourite: (show: Show | null) => void;
-}
+import { useFavouriteShow } from '../../hooks/useFavouriteShow';
 
 // this is the favourite show component
 
-export const FavouriteShowSelector = ({
-    currentFavourite,
-    setCurrentFavourite
-}: FavouriteShowSelectorProps) => {
+export const FavouriteShowSelector: React.FC = () => {
+    const { currentFavourite, setCurrentFavourite } = useFavouriteShow();
     const [query, setQuery] = useState('');
+
 
     // this const filters the shows based on the query and limits to top 3 results; don't want to overflow the page
     const filteredShows = showRepository
