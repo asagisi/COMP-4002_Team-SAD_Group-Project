@@ -40,7 +40,7 @@ export const useWatchProgress = () => {
     }
 
     setProgress(prev =>
-      prev.map(prev => (prev.id === item.id ? result.data! : p))
+      prev.map(prev => (prev.id === item.id ? result.data! : prev))
     );
     setError("");
   };
