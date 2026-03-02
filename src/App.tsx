@@ -12,6 +12,7 @@ import { type Show } from './types/Show'
 
 
 
+
 function App() {
   // this is the shared state for the favourite show
   const [currentFavourite, setCurrentFavourite] = useState<Show | null>(null)
