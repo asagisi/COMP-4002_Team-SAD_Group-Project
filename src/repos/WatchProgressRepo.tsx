@@ -4,31 +4,37 @@ import { WatchProgressList as initialWatchProgress } from "../components/data/Wa
 let progressData: WatchProgress[] = [...initialWatchProgress];
 
 const getAllWatchProgress = (): WatchProgress[] => {
-  return progressData;
+  return progressData.map(progress => ({
+    ...progress 
+  }));
 };
 
 const createWatchProgress = (
-  item: WatchProgress
+  progress: Omit<WatchProgress, "id">
 ): WatchProgress => {
-  progressData.push(item);
-  return item;
+  const newProgress: WatchProgress = {
+    ...progress,
+    id: progressData.length ? Math.max(...progressData.map(currentProgress => currentProgress.id)) + 1 : 1,
+  };
+  progressData.push(newProgress);
+  return { ...newProgress };
 };
 
 const updateWatchProgress = (
-  item: WatchProgress
+  updatedProgress: WatchProgress
 ): WatchProgress | null => {
-  const index = progressData.findIndex(watch => watch.id === item.id);
+  const index = progressData.findIndex(currentProgress => currentProgress.id === updatedProgress.id);
   if (index === -1) return null;
 
-  progressData[index] = item;
-  return item;
+  progressData[index] = { ...updatedProgress };
+  return { ...updatedProgress };
 };
 
 const removeWatchProgress = (
   id: number
 ): boolean => {
   const originalLength = progressData.length;
-  progressData = progressData.filter(watch => watch.id !== id);
+  progressData = progressData.filter(currentProgress => currentProgress.id !== id);
   return progressData.length < originalLength;
 };
 
