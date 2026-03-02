@@ -14,8 +14,14 @@ const getAllWatchProgress = (): WatchProgress[] => {
 
 const createWatchProgress = (progress: WatchProgress): ServiceResult => {
   const errorMessages: string[] = [];
+
   if (!progress.title || !progress.title.trim()) {
     errorMessages.push("Show title is required.");
+  } else {
+    const existsInShows = shows.some(show => show.title === progress.title);
+    if (!existsInShows) {
+      errorMessages.push("Show is not found in the list.");
+    }
   }
   if (progress.currentEpisode < 1) {
     errorMessages.push("Please add the current episode being watched.");
@@ -30,11 +36,12 @@ const createWatchProgress = (progress: WatchProgress): ServiceResult => {
 
 const updateWatchProgress = (progress: WatchProgress): ServiceResult => {
   const errorMessages: string[] = [];
-  if (!progress.title || !progress.title.trim()) {
-    errorMessages.push("Show title is required.");
-  }
   if (progress.currentEpisode < 1) {
-    errorMessages.push("Please add the current episode being watched.");
+    errorMessages.push("Please add currently watched episode.");
+  }
+  const allowedStatuses = ["Not Started", "Watching", "Finished"] as const;
+  if (!allowedStatuses.includes(progress.status)) {
+    errorMessages.push("Please set status.");
   }
   if (errorMessages.length > 0) {
     return { success: false, errorMessages };
