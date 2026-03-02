@@ -1,60 +1,36 @@
-import { useState, useEffect } from "react";
-import WatchProgressService from "../../services/WatchProgressService";
-import useFormInput from "../../hooks/useFormInput";
+import { useState } from "react";
+import type { WatchProgress as WatchProgressType } from "../types/WatchProgressType";
+import { WatchProgress as WatchProgressList } from "../data/WatchProgressList";
 
 export const useWatchProgress = () => {
-  const [progress, setProgress] = useState(WatchProgressService.getAllWatchProgress());
-  const [error, setError] = useState("");
-  const titleInput = useFormInput("");
+  const [progress, setProgress] =
+    useState<WatchProgressType[]>(WatchProgressList);
+  const [editId, setEditId] = useState<number | null>(null);
 
-  useEffect(() => {
-    setProgress(WatchProgressService.getAllWatchProgress());
-  }, []);
-
-  const addProgress = () => {
-    const result = WatchProgressService.createWatchProgress({
-      id: Date.now(),
-      showId: Date.now(),
-      title: titleInput.inputValue,
-      currentEpisode: 1,
-      totalEpisodes: 100,
-      status: "Not Started",
-    });
-
-    if (!result.success) {
-      setError(result.errorMessages?.join(", ") || "Unknown error");
-      return;
-    }
-
-    setProgress(prev => [...prev, result.data!]);
-    setError("");
-    titleInput.onChange({ target: { value: "" } } as React.ChangeEvent<HTMLInputElement>);
+  const statusClass: Record<WatchProgressType["status"], string> = {
+    "Not Started": "status-not-started",
+    "Watching": "status-watching",
+    "Finished": "status-finished",
   };
 
-  const updateProgress = (item: any) => {
-    const result = WatchProgressService.updateWatchProgress(item);
-
-    if (!result.success) {
-      setError(result.errorMessages?.join(", ") || "Unknown error");
-      return;
-    }
-
+  const handleSave = (update: WatchProgressType) => {
     setProgress(prev =>
-      prev.map(prev => (prev.id === item.id ? result.data! : prev))
+      prev.map(item => (item.id === update.id ? update : item))
     );
-    setError("");
+    setEditId(null);
   };
 
-  const deleteProgress = (id: number) => {
+  const handleDelete = (id: number) => {
     setProgress(prev => prev.filter(item => item.id !== id));
   };
 
   return {
     progress,
-    error,
-    titleInput,
-    addProgress,
-    updateProgress,
-    deleteProgress
+    setProgress,
+    editId,
+    setEditId,
+    statusClass,
+    handleSave,
+    handleDelete,
   };
 };
