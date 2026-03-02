@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { MyShowsList } from "../components/myshows/MyShows";
+import { useMyShows } from "../hooks/useMyShows";
 
 export const MyShowsPage: React.FC = () => {
-  const [ratings, setRatings] = useState<Record<number, number>>({});
-  const [favourites, setFavourites] = useState<number[]>([]);
+  const { myShows, setRating, toggleFavourite } = useMyShows();
 
   return (
     <div>
       <h1>My Shows</h1>
       <MyShowsList
-        ratings={ratings}
-        setRatings={setRatings}
-        favourites={favourites}
-        setFavourites={setFavourites}
+        myShows={myShows}
+        onRatingChange={setRating}
+        onToggleFavourite={toggleFavourite}
       />
     </div>
   );

@@ -9,8 +9,8 @@
   background-color: var(--bg-secondary);
   border-radius: 4px;
   border: 2px solid transparent;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(10ch, 14rem) 7rem 1fr;
   align-items: center;
   gap: 1rem;
 }
@@ -22,19 +22,21 @@
 }
 
 .my-shows-list li strong {
-  flex: 0 0 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .my-shows-stars {
-  flex: 1;
-  text-align: center;
+  text-align: left;
 }
 
-.my-shows-rating {
+.my-shows-rating-controls {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  flex: 0 0 auto;
+  justify-self: end;
 }
 
 .my-shows-list select,
