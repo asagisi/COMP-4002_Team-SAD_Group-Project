@@ -1,11 +1,4 @@
-import { type Show } from '../../types/Show';
-
-type ShowSearchFormProps = {
-  searchShow: string;
-  setSearchShow: (value: string) => void;
-  filteredShow: Show[];
-  toggleHide: (id: number) => void;
-};
+import { type ShowSearchFormProps } from '../../types/showSearchForm';
 
 export const ShowSearchForm: React.FC<ShowSearchFormProps> = ({
   searchShow,
