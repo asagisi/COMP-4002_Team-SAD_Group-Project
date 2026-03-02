@@ -54,15 +54,8 @@ const updateWatchProgress = (progress: WatchProgress): ServiceResult => {
   return { success: true, data: updated };
 };
 
-const deleteWatchProgress = (id: number): {
-  success: boolean;
-  errorMessages?: string[]
-} => {
-  const removed = WatchProgressRepo.removeWatchProgress(id);
-  if (!removed) {
-    return { success: false, errorMessages: ["Progress not found."] };
-  }
-  return { success: true };
+const deleteWatchProgress = (id: number): boolean => {
+  return WatchProgressRepo.removeWatchProgress(id);
 };
 
 export default {
