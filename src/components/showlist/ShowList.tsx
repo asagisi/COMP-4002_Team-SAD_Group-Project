@@ -1,35 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ShowList.css'; 
-import { shows } from '../data/shows';
 import { ShowSearchForm } from './ShowSearchForm';
+import { useShowLists } from '../../hooks/useShowLists';
 
-export const ShowList: React.FC = () => {   // react functional component
-
-    // States for the search, and hidden shows functionality
-
-    const [searchShow, setSearchShow] = useState('');
-    const [hiddenShows, setHiddenShows] = useState<Set<number>>(new Set());
-    const [showHidden, setShowHidden] = useState(false);
-
-    const filteredShow = shows.filter(show =>
-        show.title.toLowerCase().includes(searchShow.toLowerCase()) &&
-        !hiddenShows.has(show.id)
-    );
-
-    const hiddenShowList = shows.filter(show => hiddenShows.has(show.id));
-
-    // this will hide the show if the user clicks the hide button
-    const toggleHide = (id: number) => {
-        setHiddenShows(prev => {
-            const newSet = new Set(prev);
-            if (newSet.has(id)) {
-                newSet.delete(id);
-            } else {
-                newSet.add(id);
-            }
-            return newSet;
-        });
-    };
+/**
+ * ShowList Component
+ * 
+ * this is the show list component that utilizes all the individual criteria such as:
+ * - A repository the has the ability to perform CRUD
+ * - The repository utilizes the test data created for shows
+ * - finally, the logic and state is now in useShowLists, now all the component does is deal with UI.
+ */
+export const ShowList: React.FC = () => {
+    // Use the custom hook to get all state and functions
+    const {
+        searchShow,
+        setSearchShow,
+        showHidden,
+        setShowHidden,
+        filteredShow,
+        hiddenShowList,
+        toggleHide,
+    } = useShowLists();
 
     return (
         <section className="show-list">

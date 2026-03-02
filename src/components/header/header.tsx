@@ -1,6 +1,6 @@
 import { NavBar } from "../navbar/NavBar";
 import { FavouriteShowSelector } from "../favouriteshow/FavouriteShow";
-import { type Show } from "../data/shows";
+import { type Show } from "../../types/Show";
 import './header.css'
 
 interface HeaderProps {
