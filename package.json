@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "vite apps/frontend --config apps/frontend/vite.config.ts",
+    "build": "tsc -b apps/frontend/tsconfig.app.json apps/frontend/tsconfig.node.json && vite build apps/frontend --config apps/frontend/vite.config.ts",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview apps/frontend --config apps/frontend/vite.config.ts"
   },
   "dependencies": {
     "react": "^19.2.0",
