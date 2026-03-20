@@ -5,7 +5,8 @@ import { Home } from './pages/Home'
 import { ShowListPage } from './pages/ShowListPage'
 import { MyShowsPage } from './pages/MyShows'
 import { WatchProgressPage } from './pages/WatchProgressPage'
-import { Footer } from './components/footer/footer' 
+import { Footer } from './components/footer/footer'
+
 
 
 
@@ -14,7 +15,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header/>
+        <Header />
         <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />

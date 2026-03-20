@@ -1,3 +1,15 @@
+.header-container {
+  position: relative;
+  text-align: center;
+  padding: 2rem;
+}
+
+.favourite-wrapper {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
 .Header {
   text-align: center;
   padding: 2rem;

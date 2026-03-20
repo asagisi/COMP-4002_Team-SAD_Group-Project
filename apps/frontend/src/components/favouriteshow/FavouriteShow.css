@@ -1,0 +1,62 @@
+/* this will style the favourite show selector component */
+
+ .favourite-show {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	max-width: 320px;
+}
+
+.favourite-label {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: var(--text-primary);
+}
+
+.favourite-current {
+	font-size: 0.95rem;
+	color: var(--text-primary);
+	font-weight: bold;
+	opacity: 0.9;
+}
+
+.favourite-input {
+	padding: 10px 12px;
+	border-radius: 8px;
+	border: 1px solid rgba(224, 224, 224, 0.2);
+	background: var(--bg-secondary);
+	color: var(--text-primary);
+	outline: none;
+}
+
+
+.favourite-dropdown {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	margin-top: 6px;
+	background: var(--bg-tertiary);
+	border: 1px solid rgba(224, 224, 224, 0.15);
+	border-radius: 10px;
+	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+	z-index: 10;
+	overflow: hidden;
+}
+
+.favourite-option,
+.favourite-empty {
+	width: 100%;
+	text-align: left;
+	padding: 10px 12px;
+	background: transparent;
+	border: none;
+	color: var(--text-primary);
+	font-size: 0.95rem;
+}
+
+.favourite-option:hover {
+	background: rgba(224, 224, 224, 0.08);
+	cursor: pointer;
+}

@@ -3,29 +3,24 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "apps/backend",
+    "apps/frontend"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "start:frontend": "npm run dev --workspace=@team-sad/frontend",
+    "start:backend": "npm start --workspace=@team-sad/backend",
+    "dev": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "build": "npm run build --workspace=@team-sad/frontend",
+    "lint": "npm run lint --workspace=@team-sad/frontend",
+    "preview": "npm run preview --workspace=@team-sad/frontend"
   },
   "dependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-router-dom": "^7.13.0"
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@types/node": "^24.10.1",
-    "@types/react": "^19.2.5",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.1",
-    "eslint": "^9.39.1",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.24",
-    "globals": "^16.5.0",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "^8.46.4",
-    "vite": "^7.2.4"
+    "concurrently": "^9.2.1",
+    "typescript": "~5.9.3"
   }
 }
