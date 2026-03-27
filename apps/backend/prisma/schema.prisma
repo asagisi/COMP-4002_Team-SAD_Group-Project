@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum WatchStatus {
+  NOT_STARTED
+  WATCHING
+  FINISHED
+}
+
+model User {
+  id Int @id @default(autoincrement())
+}
+
+model Show {
+  id    Int    @id @default(autoincrement())
+  title String
+  genre String
+  year  Int
+
+  myShows       MyShow[]
+  watchProgress WatchProgress[]
+}
+
+model MyShow {
+  id          Int      @id @default(autoincrement())
+  showId      Int
+  rating      Int
+  isFavourite Boolean  @default(false)
+  review      String?
+  createdAt   DateTime @default(now())
+
+  show Show @relation(fields: [showId], references: [id])
+}
+
+model WatchProgress {
+  id             Int         @id @default(autoincrement())
+  showId         Int
+  currentEpisode Int
+  totalEpisodes  Int
+  status         WatchStatus @default(NOT_STARTED)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  show Show @relation(fields: [showId], references: [id])
+}
