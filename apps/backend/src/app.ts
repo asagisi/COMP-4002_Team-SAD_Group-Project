@@ -4,7 +4,7 @@ import { getCorsConfig } from '../config/corsConfig';
 
 const app = express();
 
-// Apply CORS using your dynamic config
+// Apply CORS using dynamic config
 app.use(cors(getCorsConfig()));
 
 // Middleware to parse JSON request bodies
