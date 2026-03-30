@@ -1,6 +1,7 @@
 import type { WatchProgress } from "../components/types/WatchProgressType";
 import WatchProgressRepo from "../repos/WatchProgressRepo";
 import { shows } from "../components/data/shows";
+import { isShowHidden } from "../repositories/userShowPrefsRepo";
 
 type ServiceResult = {
   success: boolean;
@@ -9,7 +10,7 @@ type ServiceResult = {
 };
 
 const getAllWatchProgress = (): WatchProgress[] => {
-  return WatchProgressRepo.getAllWatchProgress();
+  return WatchProgressRepo.getAllWatchProgress().filter((progress) => !isShowHidden(progress.showId));
 };
 
 const createWatchProgress = (progress: WatchProgress): ServiceResult => {
@@ -18,7 +19,7 @@ const createWatchProgress = (progress: WatchProgress): ServiceResult => {
   if (!progress.title || !progress.title.trim()) {
     errorMessages.push("Show title is required.");
   } else {
-    const existsInShows = shows.some(show => show.title === progress.title);
+    const existsInShows = shows.some(show => show.title === progress.title && !isShowHidden(show.id));
     if (!existsInShows) {
       errorMessages.push("Show is not found in the list.");
     }
