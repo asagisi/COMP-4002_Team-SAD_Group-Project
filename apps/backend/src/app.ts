@@ -40,5 +40,9 @@ app.get("/api/v1/health", (req, res) => {
 });
 
 app.use("/api/v1/shows", showRoutes);
+app.use('/api/v1/watchprogress', watchProgressRoutes);
 
 export default app;
+
+
+

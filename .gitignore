@@ -25,3 +25,5 @@ apps/backend/.env
 *.njsproj
 *.sln
 *.sw?
+
+.env
