@@ -1,6 +1,6 @@
 import type { WatchProgress } from "../../../../shared/types/WatchProgressType";
 import WatchProgressRepo from "../repositories/WatchProgressRepo";
-import { shows } from "../components/data/shows";
+import { shows } from "../../../backend/data/shows";
 import { isShowHidden } from "../repositories/userShowPrefsRepo";
 
 type ServiceResult = {
