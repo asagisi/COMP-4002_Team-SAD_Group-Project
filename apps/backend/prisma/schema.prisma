@@ -23,29 +23,24 @@ model Show {
   genre String
   year  Int
 
-  myShows       MyShow[]
-  watchProgress WatchProgress[]
+  userShow UserShow?
 }
 
-model MyShow {
-  id          Int      @id @default(autoincrement())
-  showId      Int
-  rating      Int
-  isFavourite Boolean  @default(false)
-  review      String?
-  createdAt   DateTime @default(now())
-
-  show Show @relation(fields: [showId], references: [id])
-}
-
-model WatchProgress {
+model UserShow {
   id             Int         @id @default(autoincrement())
-  showId         Int
-  currentEpisode Int
-  totalEpisodes  Int
+  showId         Int         @unique
+  show           Show        @relation(fields: [showId], references: [id])
+
+  isFavourite    Boolean     @default(false)
+  rating         Int?
+  review         String?
+
+  currentEpisode Int         @default(0)
+  totalEpisodes  Int         @default(0)
   status         WatchStatus @default(NOT_STARTED)
+
+  isHidden       Boolean     @default(false)
+
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
-
-  show Show @relation(fields: [showId], references: [id])
 }
