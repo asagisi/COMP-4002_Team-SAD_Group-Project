@@ -1,5 +1,5 @@
-import { shows } from "../components/data/shows";
-import type { Show } from "../types/Show";
+import { shows } from "../../../backend/data/shows";
+import type { Show } from "../../../../shared/types/Show";
 
 /**
  * Show Repository

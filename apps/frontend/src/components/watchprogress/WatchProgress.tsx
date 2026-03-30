@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import WatchProgressService from "../../services/WatchProgressService";
 import useFormInput from "../../hooks/useFormInput";
-import { shows } from "../data/shows";
+import { shows } from "../../../../backend/data/shows";
 import { isShowHidden } from "../../repositories/userShowPrefsRepo";
 
 export const useWatchProgress = () => {

@@ -1,5 +1,5 @@
-import type { WatchProgress } from "../components/types/WatchProgressType";
-import WatchProgressRepo from "../repos/WatchProgressRepo";
+import type { WatchProgress } from "../../../../shared/types/WatchProgressType";
+import WatchProgressRepo from "../repositories/WatchProgressRepo";
 import { shows } from "../components/data/shows";
 import { isShowHidden } from "../repositories/userShowPrefsRepo";
 

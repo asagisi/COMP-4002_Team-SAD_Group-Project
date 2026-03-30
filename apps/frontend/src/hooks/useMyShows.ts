@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import * as MyShowsService from "../services/MyShowsService";
-import type { MyShow } from "../components/types/MyShowsType";
+import type { MyShow } from "../../../../shared/types/MyShowsType";
 
 export function useMyShows() {
   const [myShows, setMyShows] = useState<MyShow[]>([]);

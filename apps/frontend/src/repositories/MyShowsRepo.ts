@@ -1,5 +1,5 @@
-import type { MyShow } from "../components/types/MyShowsType";
-import { shows } from "../components/data/shows";
+import type { MyShow } from "../../../../shared/types/MyShowsType";
+import { shows } from "../../../backend/data/shows";
 import {
   getShowPref,
   isShowHidden,
