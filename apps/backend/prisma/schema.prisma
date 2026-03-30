@@ -18,10 +18,11 @@ model User {
 }
 
 model Show {
-  id    Int    @id @default(autoincrement())
-  title String
-  genre String
-  year  Int
+  id       Int    @id @default(autoincrement())
+  title    String
+  genre    String
+  year     Int
+  episodes Int
 
   myShows       MyShow[]
   watchProgress WatchProgress[]
@@ -42,7 +43,6 @@ model WatchProgress {
   id             Int         @id @default(autoincrement())
   showId         Int
   currentEpisode Int
-  totalEpisodes  Int
   status         WatchStatus @default(NOT_STARTED)
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
