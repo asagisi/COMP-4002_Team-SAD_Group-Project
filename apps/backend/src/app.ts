@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { getCorsConfig } from '../config/corsConfig';
+import showRoutes from './routes/showRoutes';
 
 const app = express();
 
@@ -37,5 +38,7 @@ app.get("/api/v1/health", (req, res) => {
 
     res.json(healthData);
 });
+
+app.use("/api/v1/shows", showRoutes);
 
 export default app;
