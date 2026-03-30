@@ -1,5 +1,5 @@
-import type { WatchProgress } from "../components/types/WatchProgressType";
-import { WatchProgressList as initialWatchProgress } from "../components/data/WatchProgressList";
+import type { WatchProgress } from "../../../../shared/types/WatchProgressType";
+import { WatchProgressList as initialWatchProgress } from "../../../backend/data/WatchProgressList";
 
 let progressData: WatchProgress[] = [...initialWatchProgress];
 
