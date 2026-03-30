@@ -3,7 +3,7 @@ import { useWatchProgress } from "../components/watchprogress/WatchProgress";
 import "../components/watchprogress/WatchProgress.css";
 
 export const WatchProgressPage: React.FC = () => {
-  const { progress, error, titleInput, addProgress, updateProgress, deleteProgress } = useWatchProgress();
+  const { progress, error, titleInput, availableShows, addProgress, addProgressByShowId, updateProgress, deleteProgress } = useWatchProgress();
   const [editId, setEditId] = useState<number | null>(null);
 
   const statusClass: Record<string, string> = {
@@ -25,6 +25,21 @@ export const WatchProgressPage: React.FC = () => {
         />
         <button onClick={addProgress}>Add Show</button>
       </div>
+
+      {titleInput.inputValue.trim() && (
+        <ul className="watch-list">
+          {availableShows.length === 0 ? (
+            <li>No matching shows found.</li>
+          ) : (
+            availableShows.map((show) => (
+              <li key={show.id}>
+                <span>{show.title}</span>
+                <button onClick={() => addProgressByShowId(show.id)}>Add</button>
+              </li>
+            ))
+          )}
+        </ul>
+      )}
 
       {error && <div className="error">{error}</div>}
 

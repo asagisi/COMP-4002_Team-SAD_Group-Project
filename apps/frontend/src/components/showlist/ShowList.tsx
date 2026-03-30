@@ -21,6 +21,7 @@ export const ShowList: React.FC = () => {
         filteredShow,
         hiddenShowList,
         toggleHide,
+        getShowMeta,
     } = useShowLists();
 
     return (
@@ -33,6 +34,7 @@ export const ShowList: React.FC = () => {
                 setSearchShow={setSearchShow}
                 filteredShow={filteredShow}
                 toggleHide={toggleHide}
+                getShowMeta={getShowMeta}
             />
 
             {hiddenShowList.length > 0 && ( // && means only render right side of the && if left side is true

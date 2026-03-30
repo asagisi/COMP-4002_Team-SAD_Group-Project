@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import { showRepository } from '../repositories/showRepository';
+import {
+    getHiddenShowIds,
+    getShowPref,
+    toggleShowHidden,
+} from '../repositories/userShowPrefsRepo';
 
 // this is the custom hook, it uses the show repository and handles states for the show list component.
 // now component doesnt perform logic and such, renders a ui.
@@ -10,7 +15,7 @@ export const useShowLists = () => {
 
     // state set up for search, hidden and to toggle shows you dont want to see
     const [searchShow, setSearchShow] = useState('');
-    const [hiddenShows, setHiddenShows] = useState<Set<number>>(new Set());
+    const [hiddenShows, setHiddenShows] = useState<Set<number>>(getHiddenShowIds());
     const [showHidden, setShowHidden] = useState(false);
 
     // this const will filter shows based on search, hidden status.
@@ -24,15 +29,12 @@ export const useShowLists = () => {
 
     // a toggle to hide or unhide a show. if show is hidden it will be unhidden.
     const toggleHide = (id: number) => {
-        setHiddenShows(prev => {
-            const newSet = new Set(prev);
-            if (newSet.has(id)) {
-                newSet.delete(id);
-            } else {
-                newSet.add(id);
-            }
-            return newSet;
-        });
+        toggleShowHidden(id);
+        setHiddenShows(getHiddenShowIds());
+    };
+
+    const getShowMeta = (id: number) => {
+        return getShowPref(id);
     };
 
     return {
@@ -45,5 +47,6 @@ export const useShowLists = () => {
         filteredShow,
         hiddenShowList,
         toggleHide,
+        getShowMeta,
     };
 };
