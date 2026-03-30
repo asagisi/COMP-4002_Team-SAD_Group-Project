@@ -1,6 +1,5 @@
 import type { WatchProgress } from "../components/types/WatchProgressType";
-import WatchProgressRepo from "../repos/WatchProgressRepo";
-import { shows } from "../components/data/shows";
+import { showRepository, type ApiWatchStatus, type ShowWithPrefs } from "../repositories/showRepository";
 
 type ServiceResult = {
   success: boolean;
@@ -8,33 +7,73 @@ type ServiceResult = {
   errorMessages?: string[];
 };
 
-const getAllWatchProgress = (): WatchProgress[] => {
-  return WatchProgressRepo.getAllWatchProgress();
+const toUiStatus = (status: ApiWatchStatus): WatchProgress["status"] => {
+  if (status === "WATCHING") {
+    return "Watching";
+  }
+
+  if (status === "FINISHED") {
+    return "Finished";
+  }
+
+  return "Not Started";
 };
 
-const createWatchProgress = (progress: WatchProgress): ServiceResult => {
+const toApiStatus = (status: WatchProgress["status"]): ApiWatchStatus => {
+  if (status === "Watching") {
+    return "WATCHING";
+  }
+
+  if (status === "Finished") {
+    return "FINISHED";
+  }
+
+  return "NOT_STARTED";
+};
+
+const toWatchProgress = (row: ShowWithPrefs): WatchProgress => ({
+  id: row.id,
+  showId: row.id,
+  title: row.title,
+  currentEpisode: row.currentEpisode,
+  totalEpisodes: row.totalEpisodes,
+  status: toUiStatus(row.status),
+});
+
+const getAllWatchProgress = async (): Promise<WatchProgress[]> => {
+  const rows = await showRepository.getAllShowsFromApi();
+
+  return rows
+    .filter((row) => !row.isHidden)
+    .filter((row) => row.totalEpisodes > 0)
+    .map(toWatchProgress);
+};
+
+const createWatchProgress = async (progress: WatchProgress): Promise<ServiceResult> => {
   const errorMessages: string[] = [];
 
   if (!progress.title || !progress.title.trim()) {
     errorMessages.push("Show title is required.");
-  } else {
-    const existsInShows = shows.some(show => show.title === progress.title);
-    if (!existsInShows) {
-      errorMessages.push("Show is not found in the list.");
-    }
   }
+
   if (progress.currentEpisode < 1) {
     errorMessages.push("Please add the current episode being watched.");
   }
+
   if (errorMessages.length > 0) {
     return { success: false, errorMessages };
   }
 
-  const created = WatchProgressRepo.createWatchProgress(progress);
-  return { success: true, data: created };
+  const created = await showRepository.setWatchProgress(progress.showId, {
+    currentEpisode: progress.currentEpisode,
+    totalEpisodes: progress.totalEpisodes,
+    status: toApiStatus(progress.status),
+  });
+
+  return { success: true, data: toWatchProgress(created) };
 };
 
-const updateWatchProgress = (progress: WatchProgress): ServiceResult => {
+const updateWatchProgress = async (progress: WatchProgress): Promise<ServiceResult> => {
   const errorMessages: string[] = [];
   if (progress.currentEpisode < 1) {
     errorMessages.push("Please add currently watched episode.");
@@ -47,20 +86,23 @@ const updateWatchProgress = (progress: WatchProgress): ServiceResult => {
     return { success: false, errorMessages };
   }
 
-  const updated = WatchProgressRepo.updateWatchProgress(progress);
-  if (!updated) {
-    return { success: false, errorMessages: ["Progress not found."] };
-  }
-  return { success: true, data: updated };
+  const updated = await showRepository.setWatchProgress(progress.showId, {
+    currentEpisode: progress.currentEpisode,
+    totalEpisodes: progress.totalEpisodes,
+    status: toApiStatus(progress.status),
+  });
+
+  return { success: true, data: toWatchProgress(updated) };
 };
 
-const deleteWatchProgress = (id: number): boolean => {
-  return WatchProgressRepo.removeWatchProgress(id);
+const deleteWatchProgress = async (showId: number): Promise<boolean> => {
+  await showRepository.clearWatchProgress(showId);
+  return true;
 };
 
 export default {
   getAllWatchProgress,
   createWatchProgress,
   updateWatchProgress,
-  deleteWatchProgress
+  deleteWatchProgress,
 };

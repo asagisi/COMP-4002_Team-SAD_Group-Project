@@ -14,7 +14,8 @@ enum WatchStatus {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id       Int        @id @default(autoincrement())
+  userShow UserShow[]
 }
 
 model Show {
@@ -24,28 +25,28 @@ model Show {
   year     Int
   episodes Int
 
-  myShows       MyShow[]
-  watchProgress WatchProgress[]
+  userShow UserShow[]
 }
 
-model MyShow {
-  id          Int      @id @default(autoincrement())
-  showId      Int
-  rating      Int
-  isFavourite Boolean  @default(false)
-  review      String?
-  createdAt   DateTime @default(now())
-
-  show Show @relation(fields: [showId], references: [id])
-}
-
-model WatchProgress {
+model UserShow {
   id             Int         @id @default(autoincrement())
+  userId         Int
   showId         Int
-  currentEpisode Int
+  user           User        @relation(fields: [userId], references: [id])
+  show           Show        @relation(fields: [showId], references: [id])
+
+  isFavourite    Boolean     @default(false)
+  rating         Int?
+  review         String?
+
+  currentEpisode Int         @default(0)
+  totalEpisodes  Int         @default(0)
   status         WatchStatus @default(NOT_STARTED)
+
+  isHidden       Boolean     @default(false)
+
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
 
-  show Show @relation(fields: [showId], references: [id])
+  @@unique([userId, showId])
 }
