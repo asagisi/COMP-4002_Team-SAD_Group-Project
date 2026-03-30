@@ -1,4 +1,4 @@
-import type { WatchProgress } from "../types/WatchProgressType";
+import type { WatchProgress } from "../../../shared/types/WatchProgressType";
 import { shows } from "./shows";
 
 export const WatchProgressList: WatchProgress[] = [
