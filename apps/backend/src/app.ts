@@ -1,4 +1,5 @@
 import express from 'express';
+import watchProgressRoutes from './routes/watchProgressRoutes.js';
 
 const app = express();
 
@@ -30,7 +31,7 @@ app.get("/api/v1/health", (req, res) => {
     res.json(healthData);
 });
 
-
+app.use('/api/v1/watchprogress', watchProgressRoutes);
 
 export default app;
 
