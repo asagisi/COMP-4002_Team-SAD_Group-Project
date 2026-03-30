@@ -1,19 +1,22 @@
 import prisma from '../prismaClient.js';
-import type { WatchProgress } from '@prisma/client';
 
-export const WatchProgressService = {
-    getAll: async (): Promise<WatchProgress[]> =>
-        prisma.watchProgress.findMany(),
+export const watchProgressService = {
+    getAll: async () => {
+        return await prisma.watchProgress.findMany();
+    },
 
-    getById: async (id: number): Promise<WatchProgress | null> =>
-        prisma.watchProgress.findUnique({ where: { id } }),
+    create: async (data: { showId: number, currentEpisode: number, status: 'NOT_STARTED' | 'WATCHING' | 'FINISHED' }) => {
+        return await prisma.watchProgress.create({ data });
+    },
 
-    create: async (data: Partial<WatchProgress>): Promise<WatchProgress> =>
-        prisma.watchProgress.create({ data }),
+    update: async (id: number, data: { currentEpisode?: number, status?: 'NOT_STARTED' | 'WATCHING' | 'FINISHED' }) => {
+        return await prisma.watchProgress.update({
+            where: { id },
+            data,
+        });
+    },
 
-    update: async (id: number, data: Partial<WatchProgress>): Promise<WatchProgress> =>
-        prisma.watchProgress.update({ where: { id }, data }),
-
-    delete: async (id: number): Promise<WatchProgress> =>
-        prisma.watchProgress.delete({ where: { id } }),
+    delete: async (id: number) => {
+        return await prisma.watchProgress.delete({ where: { id } });
+    },
 };

@@ -1,12 +1,11 @@
-import { Router } from 'express';
-import { WatchProgressController } from '../controllers/watchProgressController.js';
+import express from 'express';
+import { watchProgressController } from '../controllers/watchProgressController.js';
 
-const router = Router();
+const router = express.Router();
 
-router.get('/', WatchProgressController.getAll);
-router.get('/:id', WatchProgressController.getById);
-router.post('/', WatchProgressController.create);
-router.put('/:id', WatchProgressController.update);
-router.delete('/:id', WatchProgressController.delete);
+router.get('/', watchProgressController.getAll);
+router.post('/', watchProgressController.create);
+router.put('/:id', watchProgressController.update);
+router.delete('/:id', watchProgressController.delete);
 
 export default router;
