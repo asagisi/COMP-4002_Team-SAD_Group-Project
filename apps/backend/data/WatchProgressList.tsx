@@ -1,5 +1,5 @@
-import type { WatchProgress } from "../types/WatchProgressType";
-import { shows } from "./shows";
+import type { WatchProgress } from "../../frontend/src/components/types/WatchProgressType.js";
+import { shows } from "../../frontend/src/components/data/shows.js";
 
 export const WatchProgressList: WatchProgress[] = [
   {
