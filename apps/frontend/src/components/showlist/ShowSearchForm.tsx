@@ -5,7 +5,6 @@ export const ShowSearchForm: React.FC<ShowSearchFormProps> = ({
   setSearchShow,
   filteredShow,
   toggleHide,
-  getShowMeta,
 }) => {
   return (
     <div className="show-search">
@@ -19,8 +18,6 @@ export const ShowSearchForm: React.FC<ShowSearchFormProps> = ({
         {filteredShow.map((show) => (
           <li key={show.id}>
             <strong>{show.title}</strong> - {show.genre} ({show.year})
-            <span> | Rating: {getShowMeta(show.id).rating}/5</span>
-            <span>{getShowMeta(show.id).isFavourite ? " | Favourite: Yes" : ""}</span>
             <button onClick={() => toggleHide(show.id)}>Hide show</button>
           </li>
         ))}

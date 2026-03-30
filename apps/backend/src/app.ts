@@ -1,15 +1,7 @@
 import express from 'express';
-import cors from 'cors';
-import { getCorsConfig } from '../config/corsConfig';
-import showRoutes from './routes/showRoutes';
+import watchProgressRoutes from './routes/watchProgressRoutes.js';
 
 const app = express();
-
-// Apply CORS using dynamic config
-app.use(cors(getCorsConfig()));
-
-// Middleware to parse JSON request bodies
-app.use(express.json());
 
 // Interface for health check response
 interface HealthCheckResponse {
@@ -39,7 +31,6 @@ app.get("/api/v1/health", (req, res) => {
     res.json(healthData);
 });
 
-app.use("/api/v1/shows", showRoutes);
 app.use('/api/v1/watchprogress', watchProgressRoutes);
 
 export default app;
