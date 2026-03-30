@@ -10,6 +10,17 @@
     margin-bottom: 2rem;  
     }
 
+.show-list-status {
+    margin: 0 0 0.75rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.show-list-error {
+    margin: 0 0 0.75rem;
+    color: #b42318;
+}
+
 .show-list input {
     padding: 0.5rem;
     width: 100%;

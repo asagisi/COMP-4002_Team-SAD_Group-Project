@@ -57,12 +57,13 @@ const watchProgressByTitle: Record<string, { currentEpisode: number; totalEpisod
     "My Hero Academia":       { currentEpisode: 113, totalEpisodes: 113, status: "FINISHED" },
 };
 
-export function buildUserShowSeedData(titleToId: Record<string, number>) {
+export function buildUserShowSeedData(titleToId: Record<string, number>, userId: number) {
     return Object.entries(titleToId).map(([title, showId]) => {
         const myShow = myShowsByTitle[title];
         const progress = watchProgressByTitle[title];
 
         return {
+            userId,
             showId,
             isFavourite:    myShow?.isFavourite ?? false,
             rating:         myShow?.rating ?? null,

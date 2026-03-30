@@ -14,7 +14,8 @@ enum WatchStatus {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id       Int        @id @default(autoincrement())
+  userShow UserShow[]
 }
 
 model Show {
@@ -23,12 +24,14 @@ model Show {
   genre String
   year  Int
 
-  userShow UserShow?
+  userShow UserShow[]
 }
 
 model UserShow {
   id             Int         @id @default(autoincrement())
-  showId         Int         @unique
+  userId         Int
+  showId         Int
+  user           User        @relation(fields: [userId], references: [id])
   show           Show        @relation(fields: [showId], references: [id])
 
   isFavourite    Boolean     @default(false)
@@ -43,4 +46,6 @@ model UserShow {
 
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
+
+  @@unique([userId, showId])
 }

@@ -8,6 +8,10 @@ async function main() {
     await prisma.show.deleteMany();
     await prisma.user.deleteMany();
 
+    const user = await prisma.user.create({
+        data: {},
+    });
+
     const createdShows = await prisma.show.createManyAndReturn({
         data: showSeedData,
         skipDuplicates: true,
@@ -17,7 +21,7 @@ async function main() {
         createdShows.map((s) => [s.title, s.id])
     );
 
-    const userShowData = buildUserShowSeedData(titleToId);
+    const userShowData = buildUserShowSeedData(titleToId, user.id);
 
     const createdUserShows = await prisma.userShow.createManyAndReturn({
         data: userShowData,
