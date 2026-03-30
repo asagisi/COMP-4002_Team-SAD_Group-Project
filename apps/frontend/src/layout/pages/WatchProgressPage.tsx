@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useWatchProgress } from "../components/watchprogress/WatchProgress";
+import { useWatchProgress } from "../../components/watchprogress/WatchProgress";
 import "../components/watchprogress/WatchProgress.css";
 
 export const WatchProgressPage: React.FC = () => {
