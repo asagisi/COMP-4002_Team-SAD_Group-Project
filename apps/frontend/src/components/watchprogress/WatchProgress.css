@@ -1,84 +1,150 @@
-.watch-progress h2 {
+.watch-progress-container h2 {
   margin-bottom: 1rem;
-}
-
-.watch-progress .add-show {
-  margin: auto;
-  margin-bottom: 0.75rem;
-  border-radius: 4px;
-  background-color: #333333;
-  width: fit-content;
-}
-
-.watch-progress .watch-list {
-  margin: auto;
   text-align: center;
-  
-  padding: 1rem;
-  min-width: fit-content;
-  max-width: 70%;
+  color: #ffffff;
 }
 
-.watch-progress ul {
+.watch-progress-container .add-show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.watch-progress-container .add-show input {
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  width: 250px;
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.watch-progress-container .add-show button {
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.watch-progress-container .add-show button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.watch-progress-container .add-show button:hover:not(:disabled) {
+  background-color: #666;
+}
+
+.watch-progress-container .watch-list {
+  margin: auto;
+  padding: 1rem;
+  max-width: 700px;
   list-style: none;
 }
 
-.watch-progress li {
-  padding: 0.1rem 1rem;
+.watch-progress-container li {
+  padding: 0.75rem 1rem;
   margin-bottom: 0.75rem;
   border-left: 6px solid;
   border-radius: 4px;
-  background-color: #000000;
+  background-color: #111;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  color: #fff;
 }
 
-.watch-progress div {
-  margin: 0.5rem;
+.watch-progress-container li div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
-.watch-progress button {
+.watch-progress-container li input[type="number"] {
+  width: 60px;
+  padding: 0.25rem;
   border-radius: 4px;
-  padding: 0.2rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  border: 1px solid #555;
+  background-color: #222;
+  color: #fff;
 }
 
-.watch-progress input {
+.watch-progress-container li select {
+  padding: 0.25rem 0.5rem;
   border-radius: 4px;
-  padding: 0.2rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin: 1rem;
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
 }
 
-.watch-progress select {
-  margin-bottom: 1rem;
+.watch-progress-container button {
   border-radius: 4px;
-  padding: 0.2rem;
+  padding: 0.25rem 0.5rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.watch-progress .error {
+.watch-progress-container button:hover {
+  background-color: #555;
+}
+
+.watch-progress-container .error {
   padding-bottom: 0.75rem;
-  color: #FF0000;
+  color: #ff4d4d;
   font-size: 1rem;
+  text-align: center;
 }
 
-.watch-progress .status-not-started {
-  border-left-color: #FF0000 !important;
+.watch-progress-container .status-not-started {
+  border-left-color: #ff4d4d;
 }
 
-.watch-progress .status-watching {
-  border-left-color: #FFA500 !important;
+.watch-progress-container .status-watching {
+  border-left-color: #ffa500;
 }
 
-.watch-progress .status-finished {
-  border-left-color: #008000 !important;
-
+.watch-progress-container .status-finished {
+  border-left-color: #00cc66;
 }
 
-.watch-progress .delete-confirm {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  color: red;
+.watch-progress-container .delete-confirm {
+  color: #ff4d4d;
   font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .watch-progress-container .add-show {
+    flex-direction: column;
+  }
+
+  .watch-progress-container .add-show input {
+    width: 100%;
+  }
+
+  .watch-progress-container .watch-list {
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+
+  .watch-progress-container li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .watch-progress-container li div {
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+  }
 }
