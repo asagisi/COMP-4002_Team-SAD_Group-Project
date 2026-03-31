@@ -14,6 +14,8 @@ import { useShowLists } from '../../hooks/useShowLists';
 export const ShowList: React.FC = () => {
     // Use the custom hook to get all state and functions
     const {
+        loading,
+        error,
         searchShow,
         setSearchShow,
         showHidden,
@@ -21,6 +23,7 @@ export const ShowList: React.FC = () => {
         filteredShow,
         hiddenShowList,
         toggleHide,
+        getShowMeta,
     } = useShowLists();
 
     return (
@@ -28,11 +31,14 @@ export const ShowList: React.FC = () => {
             <div className="section-header">
                 <h2>List of shows</h2>
             </div>
+            {loading && <p className="show-list-status">Syncing shows...</p>}
+            {error && <p className="show-list-error">{error}</p>}
             <ShowSearchForm
                 searchShow={searchShow}
                 setSearchShow={setSearchShow}
                 filteredShow={filteredShow}
                 toggleHide={toggleHide}
+                getShowMeta={getShowMeta}
             />
 
             {hiddenShowList.length > 0 && ( // && means only render right side of the && if left side is true
