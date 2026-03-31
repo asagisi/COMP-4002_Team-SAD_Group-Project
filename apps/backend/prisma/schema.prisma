@@ -23,7 +23,6 @@ model Show {
   title    String
   genre    String
   year     Int
-  episodes Int
 
   userShow UserShow[]
 }
