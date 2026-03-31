@@ -1,31 +1,25 @@
 import type { MyShow } from "../components/types/MyShowsType";
-import { shows } from "../components/data/shows";
-import {
-  getShowPref,
-  isShowHidden,
-  setShowFavourite,
-  setShowHidden,
-  setShowRating,
-} from "./userShowPrefsRepo";
+import { showRepository } from "./showRepository";
 
 // Get 
 
-export function fetchMyShows(): MyShow[] {
+export async function fetchMyShows(): Promise<MyShow[]> {
+  const shows = await showRepository.getAllShowsFromApi();
+
   return shows
-    .filter((show) => !isShowHidden(show.id))
+    .filter((show) => !show.isHidden)
     .map((show) => {
-      const pref = getShowPref(show.id);
       return {
         id: show.id,
         title: show.title,
-        rating: pref.rating,
-        isFavourite: pref.isFavourite,
+        rating: show.rating ?? 1,
+        isFavourite: show.isFavourite,
       };
     });
 }
 
-export function getMyShowById(id: number): MyShow {
-  const found = fetchMyShows().find(show => show.id === id);
+export async function getMyShowById(id: number): Promise<MyShow> {
+  const found = (await fetchMyShows()).find(show => show.id === id);
 
   if (!found) {
     throw new Error(`Show ${id} not found`);
@@ -37,55 +31,76 @@ export function getMyShowById(id: number): MyShow {
 // Update
 
 export async function updateMyShow(updatedShow: MyShow) {
-  const exists = shows.some((show) => show.id === updatedShow.id);
-  if (!exists) {
-    throw new Error(`Failed to update show ${updatedShow.id}`);
-  }
+  const updated = await showRepository.setPreferences(updatedShow.id, {
+    rating: updatedShow.rating,
+    isFavourite: updatedShow.isFavourite,
+  });
 
-  setShowRating(updatedShow.id, updatedShow.rating);
-  setShowFavourite(updatedShow.id, updatedShow.isFavourite);
-  return getMyShowById(updatedShow.id);
+  return {
+    id: updated.id,
+    title: updated.title,
+    rating: updated.rating ?? 1,
+    isFavourite: updated.isFavourite,
+  };
+}
+
+export async function updateMyShowRating(showId: number, rating: number): Promise<MyShow> {
+  const updated = await showRepository.setPreferences(showId, { rating });
+
+  return {
+    id: updated.id,
+    title: updated.title,
+    rating: updated.rating ?? 1,
+    isFavourite: updated.isFavourite,
+  };
+}
+
+export async function updateMyShowFavourite(showId: number, isFavourite: boolean): Promise<MyShow> {
+  const updated = await showRepository.setPreferences(showId, { isFavourite });
+
+  return {
+    id: updated.id,
+    title: updated.title,
+    rating: updated.rating ?? 1,
+    isFavourite: updated.isFavourite,
+  };
 }
 
 // Create
 
 export async function addMyShow(show: MyShow) {
-  const exists = shows.some((item) => item.id === show.id);
-  if (!exists) {
-    throw new Error(`Failed to add show ${show.id}`);
-  }
+  const updated = await showRepository.setHidden(show.id, false);
+  await showRepository.setPreferences(show.id, {
+    rating: show.rating,
+    isFavourite: show.isFavourite,
+  });
 
-  setShowHidden(show.id, false);
-  setShowRating(show.id, show.rating);
-  setShowFavourite(show.id, show.isFavourite);
-  return getMyShowById(show.id);
+  return {
+    id: updated.id,
+    title: updated.title,
+    rating: show.rating,
+    isFavourite: show.isFavourite,
+  };
 }
 
 // Delete
 
 export async function deleteMyShow(id: number) {
-  const show = shows.find((item) => item.id === id);
-  if (!show) {
-    throw new Error(`Failed to delete show ${id}`);
-  }
-
-  setShowHidden(id, true);
+  const updated = await showRepository.setHidden(id, true);
   return {
-    id: show.id,
-    title: show.title,
-    rating: getShowPref(id).rating,
-    isFavourite: getShowPref(id).isFavourite,
+    id: updated.id,
+    title: updated.title,
+    rating: updated.rating ?? 1,
+    isFavourite: updated.isFavourite,
   };
 }
 
 // Favourites
 
 export async function addFavouriteShow(id: number) {
-  setShowFavourite(id, true);
-  return getMyShowById(id);
+  return updateMyShowFavourite(id, true);
 }
 
 export async function removeFavouriteShow(id: number) {
-  setShowFavourite(id, false);
-  return getMyShowById(id);
+  return updateMyShowFavourite(id, false);
 }
