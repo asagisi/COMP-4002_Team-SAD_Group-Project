@@ -1,7 +1,6 @@
 import type { WatchProgress } from "../components/types/WatchProgressType";
-import { WatchProgressList as initialWatchProgress } from "../components/data/WatchProgressList";
 
-let progressData: WatchProgress[] = [...initialWatchProgress];
+let progressData: WatchProgress[] = [];
 
 const getAllWatchProgress = (): WatchProgress[] => {
   return progressData.map(progress => ({

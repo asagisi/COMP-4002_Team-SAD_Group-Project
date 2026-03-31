@@ -3,6 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20 <24"
+  },
   "scripts": {
     "dev": "vite --config vite.config.ts",
     "build": "tsc -b tsconfig.app.json tsconfig.node.json && vite build --config vite.config.ts",
