@@ -3,6 +3,9 @@
 	"private": true,
 	"version": "1.0.0",
 	"type": "module",
+	"engines": {
+		"node": ">=20 <24"
+	},
 	"scripts": {
 		"build": "prisma generate",
 		"dev": "tsx watch src/server.ts",
