@@ -6,8 +6,9 @@
 		"dev": "tsx watch src/server.ts",
 		"start": "tsx src/server.ts",
 		"seed": "tsx prisma/seed.ts",
-		"build": "echo 'No build step required for tsx backend'"
-	},
+		"build": "echo 'No build step required for tsx backend'",
+		"vercel-build": "npm run build"
+	}
 	"prisma": {
 		"seed": "tsx prisma/seed.ts"
 	},
