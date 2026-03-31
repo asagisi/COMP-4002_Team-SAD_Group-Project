@@ -1,6 +1,9 @@
 {
   "projectId": "prj_HAStMOZa9dsmTD5Y6Jg8nwgLNxgx",
-  "relatedProjects": ["prj_gSlClJnwZD8SSr1RBkVEXbMoxNSU"],
+  "relatedProjects": [
+    "prj_gSlClJnwZD8SSr1RBkVEXbMoxNSU"
+  ],
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.*)",
