@@ -1,9 +1,21 @@
 {
+  "version": 3,
+  "name": "backend",
+  "projectId": "prj_gSlClJnwZD8SSr1RBkVEXbMoxNSU",
   "relatedProjects": ["prj_HAStMOZa9dsmTD5Y6Jg8nwgLNxgx"],
-  "rewrites": [
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/api"
+      "src": "src/server.ts",
+      "use": "@vercel/node",
+      "config": {
+        "runtime": "nodejs20.x"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/server.ts"
     }
   ],
   "git": {

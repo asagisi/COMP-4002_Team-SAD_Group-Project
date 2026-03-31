@@ -1,10 +1,16 @@
 {
-    "relatedProjects": ["prj_gSlClJnwZD8SSr1RBkVEXbMoxNSU"],
-    "outputDirectory": "apps/frontend/dist",
-    "git": {
-        "deploymentEnabled": {
-            "*": false,
-            "main": true
-        }
+  "projectId": "prj_HAStMOZa9dsmTD5Y6Jg8nwgLNxgx",
+  "relatedProjects": ["prj_gSlClJnwZD8SSr1RBkVEXbMoxNSU"],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "*": false
+    }
+  }
 }

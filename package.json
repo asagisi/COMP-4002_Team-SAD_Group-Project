@@ -11,7 +11,11 @@
     "start:frontend": "npm run dev --workspace=@team-sad/frontend",
     "start:backend": "npm start --workspace=@team-sad/backend",
     "dev": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
-    "build": "npm run build --workspace=@team-sad/frontend",
+    
+    "build:frontend": "npm run build --workspace=@team-sad/frontend",
+    "build:backend": "npm run vercel-build --workspace=@team-sad/backend",
+    "build": "npm run build:frontend && npm run build:backend",
+    
     "lint": "npm run lint --workspace=@team-sad/frontend",
     "preview": "npm run preview --workspace=@team-sad/frontend"
   },
