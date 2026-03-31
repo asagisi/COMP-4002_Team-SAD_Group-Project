@@ -4,6 +4,7 @@
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "tsx watch src/server.ts",
+		"build": "npx prisma generate",
 		"start": "tsx src/server.ts",
 		"seed": "tsx prisma/seed.ts"
 	},
