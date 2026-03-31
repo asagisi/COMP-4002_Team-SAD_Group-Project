@@ -92,6 +92,14 @@ export const WatchProgressPage: React.FC = () => {
                   </select>
                 </label>
               </div>
+              <button
+                onClick={() => {
+                  updateProgress(item);
+                  setEditId(null);
+                }}
+              >
+                Save
+              </button>
               <button onClick={() => setEditId(null)}>Cancel</button>
             </li>
           ) : (
