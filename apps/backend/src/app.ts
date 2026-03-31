@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import morgan from 'morgan';
 import { getCorsConfig } from '../config/corsConfig';
 import showRoutes from './routes/showRoutes';
 
@@ -7,8 +8,7 @@ const app = express();
 
 // Apply CORS using dynamic config
 app.use(cors(getCorsConfig()));
-
-// Middleware to parse JSON request bodies
+app.use(morgan('dev'));
 app.use(express.json());
 
 // Interface for health check response
@@ -40,9 +40,5 @@ app.get("/api/v1/health", (req, res) => {
 });
 
 app.use("/api/v1/shows", showRoutes);
-app.use('/api/v1/watchprogress', watchProgressRoutes);
 
 export default app;
-
-
-

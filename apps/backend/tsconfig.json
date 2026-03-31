@@ -13,6 +13,6 @@
       "resolveJsonModule": true,
       "lib": ["ESNext"]
     },
-    "include": ["src/**/*", "prisma/**/*"],
+    "include": ["src/**/*", "prisma/**/*", "config/**/*"],
     "exclude": ["node_modules", "dist"]
   }
