@@ -1,5 +1,4 @@
 {
-  "framework": null,
   "installCommand": "npm install --no-package-lock",
   "buildCommand": "npm run build",
   "outputDirectory": "apps/frontend/dist"
