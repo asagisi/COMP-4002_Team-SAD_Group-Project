@@ -1,6 +1,6 @@
 {
     "relatedProjects": ["prj_gSlClJnwZD8SSr1RBkVEXbMoxNSU"],
-    "outputDirectory": "dist",
+    "outputDirectory": "apps/frontend/dist",
     "git": {
         "deploymentEnabled": {
             "*": false,
