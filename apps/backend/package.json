@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "tsx watch src/server.ts",
 		"start": "tsx src/server.ts",
-		"seed": "tsx prisma/seed.ts"
+		"seed": "tsx prisma/seed.ts",
+		"build": "echo 'No build step required for tsx backend'"
 	},
 	"prisma": {
 		"seed": "tsx prisma/seed.ts"
