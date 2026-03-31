@@ -8,7 +8,7 @@
 		"seed": "tsx prisma/seed.ts",
 		"build": "echo 'No build step required for tsx backend'",
 		"vercel-build": "npm run build"
-	}
+	},
 	"prisma": {
 		"seed": "tsx prisma/seed.ts"
 	},
