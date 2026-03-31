@@ -4,14 +4,24 @@
 	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
+		"build": "prisma generate",
 		"dev": "tsx watch src/server.ts",
-		"start": "tsx src/server.ts"
+		"start": "tsx src/server.ts",
+		"postinstall": "prisma generate",
+		"seed": "tsx prisma/seed.ts"
+	},
+	"prisma": {
+		"seed": "tsx prisma/seed.ts"
 	},
 	"dependencies": {
 		"@prisma/client": "^6.19.2",
-		"express": "^5.2.1"
+		"cors": "^2.8.6",
+		"express": "^5.2.1",
+		"joi": "^18.1.1",
+		"morgan": "^1.10.1"
 	},
 	"devDependencies": {
+		"@types/cors": "^2.8.19",
 		"@types/express": "^5.0.6",
 		"@types/node": "^24.10.1",
 		"prisma": "^6.19.2",
