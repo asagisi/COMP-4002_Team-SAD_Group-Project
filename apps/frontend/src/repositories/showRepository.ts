@@ -13,7 +13,7 @@ export type ShowWithPrefs = Show & {
 };
 
 const DEFAULT_USER_ID = 1;
-const API_BASE = "/api/v1/shows";
+const API_BASE = `${import.meta.env.VITE_API_URL || ""}/api/v1/shows`;
 const SHOW_CACHE_KEY = "team-sad-shows-cache-v1";
 
 let showCache: ShowWithPrefs[] | null = null;
