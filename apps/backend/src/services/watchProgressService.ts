@@ -1,4 +1,4 @@
-import prisma from '../prismaClient.js';
+import prisma from '../db/prisma';
 
 export const watchProgressService = {
     getAll: async () => {

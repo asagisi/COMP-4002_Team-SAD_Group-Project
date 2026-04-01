@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { watchProgressService } from '../services/watchProgressService.js';
+import { watchProgressService } from '../services/watchProgressService';
 
 export const watchProgressController = {
     getAll: async (_req: Request, res: Response) => {
