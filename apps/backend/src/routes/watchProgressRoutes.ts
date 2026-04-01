@@ -1,5 +1,5 @@
 import express from 'express';
-import { watchProgressController } from '../controllers/watchProgressController.js';
+import { watchProgressController } from '../controllers/watchProgressController';
 
 const router = express.Router();
 
