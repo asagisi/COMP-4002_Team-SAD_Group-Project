@@ -1,5 +1,5 @@
 import { NavBar } from "../navbar/NavBar";
-import { FavouriteShowSelector } from "../favouriteshow/FavouriteShow";
+import { FavouriteShowSelector } from "../../components/favouriteshow/FavouriteShow";
 import './header.css'
 
 export const Header = () => (
