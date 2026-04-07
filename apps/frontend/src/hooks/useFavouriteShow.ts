@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Show } from '../types/Show';
+import type { Show } from '../../../../shared/types/Show';
 
 // custom hook for favourite show state.
 // components can use this instead of passing favourite state through props.

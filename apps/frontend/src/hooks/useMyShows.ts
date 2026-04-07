@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import * as MyShowsService from "../services/MyShowsService";
-import type { MyShow } from "../components/types/MyShowsType";
+import type { MyShow } from "../../../../shared/types/MyShowsType";
 import { showRepository } from "../repositories/showRepository";
 
 function toMyShowsFromCache(): MyShow[] {

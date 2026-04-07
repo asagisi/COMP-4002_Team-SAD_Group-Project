@@ -24,5 +24,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src", "../backend/data/shows.tsx", "../backend/data/MyShows.tsx", "../../shared/types/MyShowsType.ts", "../../shared/types/Show.ts", "../../shared/types/showSearchForm.ts", "../../shared/types/WatchProgressType.tsx"]
 }
