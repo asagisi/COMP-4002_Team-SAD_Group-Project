@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useWatchProgress } from "../../components/watchprogress/WatchProgress";
-import "../components/watchprogress/WatchProgress.css";
+import "../../components/watchprogress/WatchProgress.css";
 import type { WatchProgress } from "../../../../../shared/types/WatchProgressType";
 
 export const WatchProgressPage: React.FC = () => {
