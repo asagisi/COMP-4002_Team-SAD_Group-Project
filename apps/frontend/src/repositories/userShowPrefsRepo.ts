@@ -1,4 +1,4 @@
-import { myShowsData } from "../components/data/MyShows";
+import { myShowsData } from "../../../backend/data/MyShows";
 
 type UserShowPref = {
   rating: number;

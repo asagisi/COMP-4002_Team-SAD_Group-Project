@@ -1,4 +1,4 @@
-import { type ShowSearchFormProps } from '../../types/showSearchForm';
+import { type ShowSearchFormProps } from '../../../../../shared/types/showSearchForm';
 
 export const ShowSearchForm: React.FC<ShowSearchFormProps> = ({
   searchShow,

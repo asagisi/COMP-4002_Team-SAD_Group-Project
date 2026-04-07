@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import WatchProgressService from "../../services/WatchProgressService";
 import useFormInput from "../../hooks/useFormInput";
 import { showRepository, type ShowWithPrefs } from "../../repositories/showRepository";
-import type { WatchProgress } from "../types/WatchProgressType";
+import type { WatchProgress } from "../../../../../shared/types/WatchProgressType";
 
 export const useWatchProgress = () => {
   const toUiStatus = (status: ShowWithPrefs["status"]): WatchProgress["status"] => {
