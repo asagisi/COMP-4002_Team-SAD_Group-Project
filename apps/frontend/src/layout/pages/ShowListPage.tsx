@@ -1,4 +1,4 @@
-import { ShowList } from "../components/showlist/ShowList"
+import { ShowList } from "../../components/showlist/ShowList"
 
 
 export const ShowListPage = () => (

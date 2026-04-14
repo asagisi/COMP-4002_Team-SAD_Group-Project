@@ -1,5 +1,5 @@
 import React from "react";
-import type { MyShow } from "../types/MyShowsType";
+import type { MyShow } from "../../../../../shared/types/MyShowsType";
 import "./MyShows.css";
 
 type ShowProps = {

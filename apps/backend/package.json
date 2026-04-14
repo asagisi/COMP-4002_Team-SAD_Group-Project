@@ -6,7 +6,7 @@
 		"node": ">=20 <24"
 	},
 	"scripts": {
-		"build": "prisma generate",
+		"build": "prisma migrate deploy && prisma generate",
 		"dev": "tsx watch src/server.ts",
 		"start": "tsx src/server.ts",
 		"postinstall": "prisma generate",

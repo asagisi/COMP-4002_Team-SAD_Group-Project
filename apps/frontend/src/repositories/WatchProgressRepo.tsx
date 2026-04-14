@@ -1,4 +1,4 @@
-import type { WatchProgress } from "../components/types/WatchProgressType";
+import type { WatchProgress } from "../../../../shared/types/WatchProgressType";
 
 let progressData: WatchProgress[] = [];
 

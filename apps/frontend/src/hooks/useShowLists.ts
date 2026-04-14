@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { showRepository } from '../repositories/showRepository';
-import type { Show } from '../types/Show';
+import type { Show } from '../../../../shared/types/Show';
 
 type ShowWithPrefs = Show & {
     isHidden: boolean;
