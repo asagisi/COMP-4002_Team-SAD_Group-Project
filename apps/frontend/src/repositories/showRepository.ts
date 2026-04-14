@@ -1,5 +1,5 @@
-import type { Show } from "../types/Show";
-import { shows } from "../components/data/shows";
+import type { Show } from "../../../../shared/types/Show";
+import { shows } from "../../../backend/data/shows";
 
 export type ApiWatchStatus = "NOT_STARTED" | "WATCHING" | "FINISHED";
 

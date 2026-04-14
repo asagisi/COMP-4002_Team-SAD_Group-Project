@@ -1,4 +1,4 @@
-import type { Show } from "../../types/Show";
+import type { Show } from "../../../shared/types/Show";
 
 export  const shows: Show[] = [ 
     { id: 1, title: 'Better Call Saul', genre: 'Drama', year: 2015 },

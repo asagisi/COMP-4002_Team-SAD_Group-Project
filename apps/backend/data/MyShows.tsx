@@ -1,4 +1,4 @@
-import type { MyShow } from "../types/MyShowsType";
+import type { MyShow } from "../../../shared/types/MyShowsType";
 
 export const myShowsData: MyShow[] = [
   { id: 1, title: "Dragon Ball Z", rating: 5, isFavourite: true },
