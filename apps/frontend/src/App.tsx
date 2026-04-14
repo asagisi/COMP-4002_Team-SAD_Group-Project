@@ -1,12 +1,12 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Header } from './components/header/header'
-import { Home } from './pages/Home'
-import { ShowListPage } from './pages/ShowListPage'
-import { MyShowsPage } from './pages/MyShows'
-import { WatchProgressPage } from './pages/WatchProgressPage'
-import { ProfilePage } from './pages/ProfilePage'
-import { Footer } from './components/footer/footer'
+import { Header } from './layout/header/header'
+import { Home } from './layout/pages/Home'
+import { ShowListPage } from './layout/pages/ShowListPage'
+import { MyShowsPage } from './layout/pages/MyShows'
+import { WatchProgressPage } from './layout/pages/WatchProgressPage'
+import { ProfilePage } from './layout/pages/ProfilePage'
+import { Footer } from './layout/footer/footer'
 
 
 
