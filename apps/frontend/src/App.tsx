@@ -5,6 +5,7 @@ import { Home } from './pages/Home'
 import { ShowListPage } from './pages/ShowListPage'
 import { MyShowsPage } from './pages/MyShows'
 import { WatchProgressPage } from './pages/WatchProgressPage'
+import { ProfilePage } from './pages/ProfilePage'
 import { Footer } from './components/footer/footer'
 
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/showlist" element={<ShowListPage />} />
           <Route path="/myshows" element={<MyShowsPage />} />
           <Route path="/watchlist" element={<WatchProgressPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         </main>
         <Footer/>
