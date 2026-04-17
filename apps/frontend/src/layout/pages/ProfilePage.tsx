@@ -1,29 +1,30 @@
 import React from 'react';
+import { useUser, SignInButton, Show } from '@clerk/react';
 import './ProfilePage.css';
 
 export const ProfilePage: React.FC = () => {
+  const { user } = useUser();
+
+
+  // more simple to just not render user related data i think.
   return (
     <div className="profile-page">
       <h1>Profile</h1>
-      <section className="profile-card">
-        <h2>Account</h2>
-        <p className="profile-empty">Log in to view your profile... hurry up log in! oh what? can't? the team didn't integrate authentication yet?</p>
-      </section>
+      <Show when="signed-out">
+        <section className="profile-card">
+          <p className="profile-empty">Sign in to view your profile.</p>
+          <SignInButton mode="modal">
+            <button className="profile-auth-button" type="button">Log in</button>
+          </SignInButton>
+        </section>
+      </Show>
 
-      <section className="profile-card">
-        <h2>Show list (maybe total shows hidden?)</h2>
-        <p className="profile-empty">needs work.</p>
-      </section>
-
-      <section className="profile-card">
-        <h2>Watchlist overview (maybe total shows in list?)</h2>
-        <p className="profile-empty">needs work.</p>
-      </section>
-
-      <section className="profile-card">
-        <h2>My Shows (again maybe total shows?)</h2>
-        <p className="profile-empty">needs work.</p>
-      </section>
+      <Show when="signed-in">
+        <section className="profile-card">
+          <h2>Account</h2>
+          <p>{user?.fullName ?? user?.primaryEmailAddress?.emailAddress}</p>
+        </section>
+      </Show>
     </div>
   );
 };
