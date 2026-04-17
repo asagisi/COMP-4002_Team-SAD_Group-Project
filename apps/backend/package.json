@@ -16,6 +16,7 @@
 		"seed": "tsx prisma/seed.ts"
 	},
 	"dependencies": {
+		"@clerk/express": "^2.1.4",
 		"@prisma/client": "^6.19.2",
 		"cors": "^2.8.6",
 		"express": "^5.2.1",
