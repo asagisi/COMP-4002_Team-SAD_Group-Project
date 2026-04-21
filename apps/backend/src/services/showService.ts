@@ -14,30 +14,22 @@ type ShowListItem = {
   status: WatchStatus;
 };
 
-async function ensureUser(userId: number): Promise<void> {
-  await prisma.user.upsert({
-    where: { id: userId },
-    update: {},
-    create: { id: userId },
-  });
-}
-
-export async function getShowsForUser(userId: number): Promise<ShowListItem[]> {
-  await ensureUser(userId);
-
+export async function getShowsForUser(userId?: number): Promise<ShowListItem[]> {
   const rows = await prisma.show.findMany({
     include: {
-      userShow: {
-        where: { userId },
-        select: {
-          isHidden: true,
-          isFavourite: true,
-          rating: true,
-          currentEpisode: true,
-          totalEpisodes: true,
-          status: true,
-        },
-      },
+      userShow: userId
+        ? {
+            where: { userId },
+            select: {
+              isHidden: true,
+              isFavourite: true,
+              rating: true,
+              currentEpisode: true,
+              totalEpisodes: true,
+              status: true,
+            },
+          }
+        : false,
     },
     orderBy: {
       title: "asc",
@@ -45,7 +37,7 @@ export async function getShowsForUser(userId: number): Promise<ShowListItem[]> {
   });
 
   return rows.map((show) => {
-    const rel = show.userShow[0];
+    const rel = Array.isArray(show.userShow) ? show.userShow[0] : undefined;
     return {
       id: show.id,
       title: show.title,
@@ -62,8 +54,6 @@ export async function getShowsForUser(userId: number): Promise<ShowListItem[]> {
 }
 
 export async function updateShowHidden(userId: number, showId: number, isHidden: boolean): Promise<ShowListItem> {
-  await ensureUser(userId);
-
   const show = await prisma.show.findUnique({ where: { id: showId } });
   if (!show) {
     throw new Error("Show not found");
@@ -105,8 +95,6 @@ export async function updateShowPreferences(
   showId: number,
   payload: { rating?: number; isFavourite?: boolean }
 ): Promise<ShowListItem> {
-  await ensureUser(userId);
-
   const show = await prisma.show.findUnique({ where: { id: showId } });
   if (!show) {
     throw new Error("Show not found");
@@ -150,8 +138,6 @@ export async function updateWatchProgress(
   showId: number,
   payload: { currentEpisode: number; totalEpisodes: number; status: WatchStatus }
 ): Promise<ShowListItem> {
-  await ensureUser(userId);
-
   const show = await prisma.show.findUnique({ where: { id: showId } });
   if (!show) {
     throw new Error("Show not found");
@@ -193,8 +179,6 @@ export async function updateWatchProgress(
 }
 
 export async function clearWatchProgress(userId: number, showId: number): Promise<ShowListItem> {
-  await ensureUser(userId);
-
   const show = await prisma.show.findUnique({ where: { id: showId } });
   if (!show) {
     throw new Error("Show not found");

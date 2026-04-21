@@ -9,7 +9,7 @@ async function main() {
     await prisma.user.deleteMany();
 
     const user = await prisma.user.create({
-        data: {},
+        data: { clerkUserId: "dev_seed_user_001" },
     });
 
     const createdShows = await prisma.show.createManyAndReturn({

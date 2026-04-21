@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import { clerkMiddleware } from '@clerk/express';
 import { getCorsConfig } from '../config/corsConfig';
 import showRoutes from './routes/showRoutes';
 
@@ -10,6 +11,9 @@ app.use(cors(getCorsConfig()));
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
+
+// Clerk auth
+app.use(clerkMiddleware());
 
 // Interface for health check response
 interface HealthCheckResponse {
