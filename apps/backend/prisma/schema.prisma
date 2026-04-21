@@ -14,8 +14,9 @@ enum WatchStatus {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
-  userShow UserShow[]
+  id          Int        @id @default(autoincrement())
+  clerkUserId String     @unique
+  userShow    UserShow[]
 }
 
 model Show {

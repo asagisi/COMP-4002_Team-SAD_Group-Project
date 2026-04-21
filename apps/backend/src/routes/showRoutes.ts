@@ -1,13 +1,16 @@
 import { Router } from "express";
+import { requireAuth } from "@clerk/express";
 import { deleteShowProgress, getShows, patchShowHidden, patchShowPreferences, patchShowProgress } from "../controllers/showController";
-import { validateHiddenPayload, validatePreferencesPayload, validateProgressPayload, validateShowIdParam, validateUserIdBody, validateUserIdQuery } from "../middleware/showValidation";
+import { findOrCreateUser } from "../middleware/findOrCreateUser";
+import { validateHiddenPayload, validatePreferencesPayload, validateProgressPayload, validateShowIdParam } from "../middleware/showValidation";
 
 const router = Router();
 
-router.get("/", validateUserIdQuery, getShows);
-router.patch("/:showId/hidden", validateShowIdParam, validateHiddenPayload, patchShowHidden);
-router.patch("/:showId/preferences", validateShowIdParam, validatePreferencesPayload, patchShowPreferences);
-router.patch("/:showId/progress", validateShowIdParam, validateProgressPayload, patchShowProgress);
-router.delete("/:showId/progress", validateShowIdParam, validateUserIdBody, deleteShowProgress);
+router.get("/", findOrCreateUser, getShows);
+
+router.patch("/:showId/hidden", requireAuth(), findOrCreateUser, validateShowIdParam, validateHiddenPayload, patchShowHidden);
+router.patch("/:showId/preferences", requireAuth(), findOrCreateUser, validateShowIdParam, validatePreferencesPayload, patchShowPreferences);
+router.patch("/:showId/progress", requireAuth(), findOrCreateUser, validateShowIdParam, validateProgressPayload, patchShowProgress);
+router.delete("/:showId/progress", requireAuth(), findOrCreateUser, validateShowIdParam, deleteShowProgress);
 
 export default router;
