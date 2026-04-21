@@ -5,6 +5,7 @@ import { Home } from './layout/pages/Home'
 import { ShowListPage } from './layout/pages/ShowListPage'
 import { MyShowsPage } from './layout/pages/MyShows'
 import { WatchProgressPage } from './layout/pages/WatchProgressPage'
+import { ProfilePage } from './layout/pages/ProfilePage'
 import { Footer } from './layout/footer/footer'
 
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/showlist" element={<ShowListPage />} />
           <Route path="/myshows" element={<MyShowsPage />} />
           <Route path="/watchlist" element={<WatchProgressPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         </main>
         <Footer/>

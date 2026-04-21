@@ -33,7 +33,102 @@ Project Team
 - I.2: Form Component (All members)
 - I.3: Element Addition/Removal (All members)
 
+# Local Setup
 
+Here are the steps to run the application locally, including both front-end and back-end, along with authentication using Clerk.
+
+### 1. Clone the Repository
+
+```
+git clone https://github.com/asagisi/COMP-4002_Team-SAD_Group-Project
+cd ./COMP-4002_Team-SAD_Group-Project
+```
+
+### 2. Install Dependencies
+
+#### Front-End
+```
+cd ./apps/frontend
+npm install
+```
+
+#### Back-End
+```
+cd ./apps/backend
+npm install
+```
+
+### 3. Configure Environment Variables
+
+Create a `.env` file in both front-end and back-end directories.
+
+Front-End `.env`
+
+```env
+NEXT_PUBLIC_CLERK_FRONTEND_API=<your-clerk-frontend-api>
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+Back-End `.env`
+
+```env
+CLERK_API_KEY=<your-clerk-api-key>
+DATABASE_URL=postgres://username:password@localhost:5432/<dbname>
+PORT=5000
+```
+
+Replace placeholders with your actual values. Do not commit secrets to GitHub.
+
+### 4. Set Up the Database
+
+If using PostgreSQL:
+
+```env
+psql -U <username> -c "CREATE DATABASE <dbname>;"
+```
+
+Run migrations to set up your schema:
+
+```Bash
+cd backend
+npx prisma migrate dev
+# or your migration tool
+```
+
+### 5. Start the Applications
+
+#### Back-End
+```Bash
+cd backend
+npm run dev
+```
+
+API will run at http://localhost:5000
+
+#### Front-End
+
+```Bash
+cd frontend
+npm run dev
+```
+
+Front-end will run at http://localhost:3000
+
+### 6. Test Authentication
+
+  1. Go to the front-end login page.
+  2. Register a new account using email login.
+  3. Verify that user-specific data is available through the API.
+
+### 7. Additional Notes
+
+  - Ensure that the front-end `.env` points to your local back-end URL.
+  - Clerk authentication requires correct API keys and project environment configuration.
+  - To reset the database (development only):
+
+  ```Bash
+  npx prisma migrate reset
+  ```
 
 # React + TypeScript + Vite
 
