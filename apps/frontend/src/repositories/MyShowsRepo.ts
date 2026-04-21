@@ -1,4 +1,4 @@
-import type { MyShow } from "../components/types/MyShowsType";
+import type { MyShow } from "../../../../shared/types/MyShowsType";
 import { showRepository } from "./showRepository";
 
 // Get 

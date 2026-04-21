@@ -1,8 +1,8 @@
-.watch-progress h2 {
+.watch-progress-container h2 {
   margin-bottom: 1rem;
 }
 
-.watch-progress .add-show {
+.watch-progress-container .add-show {
   margin: auto;
   margin-bottom: 0.75rem;
   border-radius: 4px;
@@ -10,7 +10,7 @@
   width: fit-content;
 }
 
-.watch-progress .watch-list {
+.watch-progress-container .watch-list {
   margin: auto;
   text-align: center;
   
@@ -19,12 +19,12 @@
   max-width: 70%;
 }
 
-.watch-progress ul {
+.watch-progress-container ul {
   margin-bottom: 1rem;
   list-style: none;
 }
 
-.watch-progress li {
+.watch-progress-container li {
   padding: 0.1rem 1rem;
   margin-bottom: 0.75rem;
   border-left: 6px solid;
@@ -32,18 +32,18 @@
   background-color: #000000;
 }
 
-.watch-progress div {
+.watch-progress-container div {
   margin: 0.5rem;
 }
 
-.watch-progress button {
+.watch-progress-container button {
   border-radius: 4px;
   padding: 0.2rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
 
-.watch-progress input {
+.watch-progress-container input {
   border-radius: 4px;
   padding: 0.2rem;
   padding-left: 1rem;
@@ -51,32 +51,32 @@
   margin: 1rem;
 }
 
-.watch-progress select {
+.watch-progress-container select {
   margin-bottom: 1rem;
   border-radius: 4px;
   padding: 0.2rem;
 }
 
-.watch-progress .error {
+.watch-progress-container .error {
   padding-bottom: 0.75rem;
   color: #FF0000;
   font-size: 1rem;
 }
 
-.watch-progress .status-not-started {
+.watch-progress-container .status-not-started {
   border-left-color: #FF0000 !important;
 }
 
-.watch-progress .status-watching {
+.watch-progress-container .status-watching {
   border-left-color: #FFA500 !important;
 }
 
-.watch-progress .status-finished {
+.watch-progress-container .status-finished {
   border-left-color: #008000 !important;
 
 }
 
-.watch-progress .delete-confirm {
+.watch-progress-container .delete-confirm {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   color: red;

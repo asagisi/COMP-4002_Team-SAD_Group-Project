@@ -1,5 +1,5 @@
 import * as MyShowsRepo from "../repositories/MyShowsRepo";
-import type { MyShow } from "../components/types/MyShowsType";
+import type { MyShow } from "../../../../shared/types/MyShowsType";
 
 const MIN_RATING = 1;
 const MAX_RATING = 5;

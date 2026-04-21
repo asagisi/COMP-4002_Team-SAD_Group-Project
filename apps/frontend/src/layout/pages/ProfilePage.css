@@ -1,0 +1,35 @@
+.profile-page {
+  text-align: center;
+  padding: 2rem;
+}
+
+.profile-card {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--text-secondary);
+  border-radius: 4px;
+}
+
+.profile-card h2 {
+  margin-bottom: 0.75rem;
+}
+
+.profile-empty {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.profile-auth-button {
+  background: transparent;
+  border: 1px solid var(--text-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  font: inherit;
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+}
+
+.profile-auth-button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}

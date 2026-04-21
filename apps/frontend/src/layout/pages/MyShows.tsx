@@ -1,6 +1,6 @@
 import React from "react";
-import { MyShowsList } from "../components/myshows/MyShows";
-import { useMyShows } from "../hooks/useMyShows";
+import { MyShowsList } from "../../components/myshows/MyShows";
+import { useMyShows } from "../../hooks/useMyShows";
 
 export const MyShowsPage: React.FC = () => {
   const { myShows, loading, error, setRating, toggleFavourite } = useMyShows();
