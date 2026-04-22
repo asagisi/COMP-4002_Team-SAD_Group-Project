@@ -1,9 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-<<<<<<< S5-Back-end-User-Management
-=======
 import dotenv from 'dotenv';
->>>>>>> develop
 import { clerkMiddleware } from '@clerk/express';
 import { getCorsConfig } from '../config/corsConfig';
 import showRoutes from './routes/showRoutes';

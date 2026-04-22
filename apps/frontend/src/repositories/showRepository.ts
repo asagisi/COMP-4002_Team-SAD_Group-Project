@@ -64,13 +64,37 @@ function upsertCachedShow(updated: ShowWithPrefs): void {
     saveShowCache(next);
 }
 
-async function parseResponse<T>(response: Response): Promise<T> {
-    if (!response.ok) {
-        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(payload?.error ?? `Request failed with status ${response.status} at ${response.url}`);
-    }
+const STATUS_MESSAGES: Record<number, string> = {
+    400: "That request doesn't look right. Please try again.",
+    401: "Please sign in to make changes.",
+    403: "You don't have permission to do that.",
+    404: "Please sign in to make changes.",
+    409: "That conflicts with something else. Please refresh and try again.",
+    422: "Some of the info provided isn't valid.",
+    429: "You're doing that too fast — please wait a moment and try again.",
+};
 
-    return response.json() as Promise<T>;
+function statusToFriendlyMessage(status: number): string {
+    if (STATUS_MESSAGES[status]) return STATUS_MESSAGES[status];
+    if (status >= 500) return "Something went wrong on our end. Please try again shortly.";
+    return "Something went wrong. Please try again.";
+}
+
+async function parseResponse<T>(response: Response): Promise<T> {
+    if (response.ok) return response.json() as Promise<T>;
+
+    // Trust server-provided messages on client errors
+    const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+    const useServerMessage = response.status < 500 && payload?.error;
+    throw new Error(useServerMessage ? payload.error! : statusToFriendlyMessage(response.status));
+}
+
+async function safeFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+    try {
+        return await fetch(input, init);
+    } catch {
+        throw new Error("Can't reach the server right now. Check your connection and try again.");
+    }
 }
 
 /**
@@ -93,7 +117,7 @@ export const showRepository = {
      * Retrieve all shows with user relationship data from backend
      */
     getAllShowsFromApi: async (): Promise<ShowWithPrefs[]> => {
-        const response = await fetch(`${API_BASE}?userId=${DEFAULT_USER_ID}`, {
+        const response = await safeFetch(`${API_BASE}?userId=${DEFAULT_USER_ID}`, {
             cache: "no-store",
         });
         const data = await parseResponse<ShowWithPrefs[]>(response);
@@ -105,7 +129,7 @@ export const showRepository = {
      * Update hidden state for a show
      */
     setHidden: async (showId: number, isHidden: boolean): Promise<ShowWithPrefs> => {
-        const response = await fetch(`${API_BASE}/${showId}/hidden`, {
+        const response = await safeFetch(`${API_BASE}/${showId}/hidden`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -125,7 +149,7 @@ export const showRepository = {
         showId: number,
         payload: { rating?: number; isFavourite?: boolean }
     ): Promise<ShowWithPrefs> => {
-        const response = await fetch(`${API_BASE}/${showId}/preferences`, {
+        const response = await safeFetch(`${API_BASE}/${showId}/preferences`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -145,7 +169,7 @@ export const showRepository = {
         showId: number,
         payload: { currentEpisode: number; totalEpisodes: number; status: ApiWatchStatus }
     ): Promise<ShowWithPrefs> => {
-        const response = await fetch(`${API_BASE}/${showId}/progress`, {
+        const response = await safeFetch(`${API_BASE}/${showId}/progress`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -162,7 +186,7 @@ export const showRepository = {
     },
 
     clearWatchProgress: async (showId: number): Promise<ShowWithPrefs> => {
-        const response = await fetch(`${API_BASE}/${showId}/progress`, {
+        const response = await safeFetch(`${API_BASE}/${showId}/progress`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
