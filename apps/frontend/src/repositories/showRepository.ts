@@ -68,7 +68,7 @@ const STATUS_MESSAGES: Record<number, string> = {
     400: "That request doesn't look right. Please try again.",
     401: "Please sign in to make changes.",
     403: "You don't have permission to do that.",
-    404: "Please sign in to make changes.",
+    404: "We couldn't find what you were looking for.",
     409: "That conflicts with something else. Please refresh and try again.",
     422: "Some of the info provided isn't valid.",
     429: "You're doing that too fast — please wait a moment and try again.",
