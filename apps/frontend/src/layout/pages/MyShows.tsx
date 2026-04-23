@@ -9,7 +9,7 @@ export const MyShowsPage: React.FC = () => {
     <div>
       <h1>My Shows</h1>
       {loading && <p>Loading My Shows...</p>}
-      {error && <p>{error}</p>}
+      {error && <p role="alert" style={{ color: "#c0392b" }}>{error}</p>}
       <MyShowsList
         myShows={myShows}
         onRatingChange={setRating}
