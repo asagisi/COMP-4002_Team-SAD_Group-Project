@@ -39,96 +39,99 @@ Here are the steps to run the application locally, including both front-end and 
 
 ### 1. Clone the Repository
 
-```
+```bash
 git clone https://github.com/asagisi/COMP-4002_Team-SAD_Group-Project
 cd ./COMP-4002_Team-SAD_Group-Project
 ```
 
 ### 2. Install Dependencies
 
-#### Front-End
-```
-cd ./apps/frontend
+From the repo root:
+
+```bash
 npm install
 ```
 
-#### Back-End
-```
-cd ./apps/backend
-npm install
-```
+This project uses npm workspaces, so installing from the root will install dependencies for both `apps/frontend` and `apps/backend`.
 
 ### 3. Configure Environment Variables
 
-Create a `.env` file in both front-end and back-end directories.
+Create a `.env` file in both the front-end and back-end directories.
 
-Front-End `.env`
+Front-End `apps/frontend/.env`
 
 ```env
-NEXT_PUBLIC_CLERK_FRONTEND_API=<your-clerk-frontend-api>
-NEXT_PUBLIC_API_URL=http://localhost:5000
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_publishable_key
+VITE_API_URL=http://localhost:3000
 ```
 
-Back-End `.env`
+Back-End `apps/backend/.env`
 
 ```env
-CLERK_API_KEY=<your-clerk-api-key>
-DATABASE_URL=postgres://username:password@localhost:5432/<dbname>
-PORT=5000
+CLERK_SECRET_KEY=sk_test_your_clerk_secret_key
+DATABASE_URL=postgresql://username:password@your-neon-host/neondb?sslmode=require
+PORT=3000
 ```
 
 Replace placeholders with your actual values. Do not commit secrets to GitHub.
 
 ### 4. Set Up the Database
 
-If using PostgreSQL:
+Run the existing migrations:
 
-```env
-psql -U <username> -c "CREATE DATABASE <dbname>;"
+```bash
+npx prisma migrate deploy --schema apps/backend/prisma/schema.prisma
 ```
 
-Run migrations to set up your schema:
+If you want local seed data:
 
-```Bash
-cd backend
-npx prisma migrate dev
-# or your migration tool
+```bash
+npm run seed --workspace=@team-sad/backend
 ```
 
 ### 5. Start the Applications
 
-#### Back-End
-```Bash
-cd backend
+To run both applications together from the repo root:
+
+```bash
 npm run dev
 ```
 
-API will run at http://localhost:5000
+This starts:
 
-#### Front-End
+- the back-end on `http://localhost:3000`
+- the front-end on Vite's local dev server
 
-```Bash
-cd frontend
-npm run dev
+If you want to run them separately:
+
+Back-End
+
+```bash
+npm run start:backend
 ```
 
-Front-end will run at http://localhost:3000
+Front-End
+
+```bash
+npm run start:frontend
+```
 
 ### 6. Test Authentication
 
-  1. Go to the front-end login page.
-  2. Register a new account using email login.
-  3. Verify that user-specific data is available through the API.
+1. Go to the front-end in your browser.
+2. Use the Clerk login button in the header to sign up or sign in.
+3. Verify that guest users can browse without personalized changes.
+4. Verify that signed-in users can save show-specific changes like hide, favourites, ratings, and watch progress.
 
 ### 7. Additional Notes
 
-  - Ensure that the front-end `.env` points to your local back-end URL.
-  - Clerk authentication requires correct API keys and project environment configuration.
-  - To reset the database (development only):
+- Ensure that the front-end `.env` points to your local back-end URL.
+- If backend auth changes are not reflected, restart the back-end after updating `.env`.
+- If Prisma types are out of date after a schema change, run:
 
-  ```Bash
-  npx prisma migrate reset
-  ```
+```bash
+npm run build --workspace=@team-sad/backend
+```
 
 # React + TypeScript + Vite
 

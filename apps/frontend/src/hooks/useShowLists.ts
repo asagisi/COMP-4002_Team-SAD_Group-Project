@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useAuth } from '@clerk/react';
 import { showRepository } from '../repositories/showRepository';
 import type { Show } from '../../../../shared/types/Show';
 
@@ -12,6 +13,7 @@ type ShowWithPrefs = Show & {
 // now component doesnt perform logic and such, renders a ui.
 
 export const useShowLists = () => {
+    const { userId } = useAuth();
     const [shows, setShows] = useState<ShowWithPrefs[]>(showRepository.getCachedShows());
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -35,7 +37,7 @@ export const useShowLists = () => {
         };
 
         loadShows();
-    }, []);
+    }, [userId]);
 
     // this const will filter shows based on search, hidden status.
     const filteredShow = shows.filter(show =>
