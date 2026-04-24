@@ -81,7 +81,7 @@ function upsertCachedShow(updated: ShowWithPrefs): void {
     saveShowCache(next);
 }
 
-const STATUS_MESSAGES: Record<number, string> = {
+export const STATUS_MESSAGES: Record<number, string> = {
     400: "That request doesn't look right. Please try again.",
     401: "Please sign in to make changes.",
     403: "You don't have permission to do that.",
@@ -165,6 +165,24 @@ export const showRepository = {
         return data;
     },
 
+    getCurrentFavouriteShow: async (): Promise<Show | null> => {
+        const response = await safeFetch(`${API_BASE}/current-favourite`, {
+            cache: "no-store",
+            headers: await buildAuthHeaders(),
+        });
+
+        return parseResponse<Show | null>(response);
+    },
+
+    setCurrentFavouriteShow: async (showId: number): Promise<Show> => {
+        const response = await safeFetch(`${API_BASE}/current-favourite/${showId}`, {
+            method: "PATCH",
+            headers: await buildJsonHeaders(),
+        });
+
+        return parseResponse<Show>(response);
+    },
+
     /**
      * Update hidden state for a show
      */
@@ -227,3 +245,5 @@ export const showRepository = {
         return data;
     },
 };
+
+export const AUTH_REQUIRED_MESSAGE = STATUS_MESSAGES[401];
