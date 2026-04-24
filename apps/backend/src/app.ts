@@ -15,9 +15,6 @@ app.use(clerkMiddleware());
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
-// Clerk auth
-app.use(clerkMiddleware());
-
 // Interface for health check response
 interface HealthCheckResponse {
     status: string;

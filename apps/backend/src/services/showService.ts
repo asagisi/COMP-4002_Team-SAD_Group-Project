@@ -14,6 +14,13 @@ type ShowListItem = {
   status: WatchStatus;
 };
 
+type ShowSummary = {
+  id: number;
+  title: string;
+  genre: string;
+  year: number;
+};
+
 export async function getShowsForUser(userId?: number): Promise<ShowListItem[]> {
   const rows = await prisma.show.findMany({
     include: {
@@ -51,6 +58,49 @@ export async function getShowsForUser(userId?: number): Promise<ShowListItem[]> 
       status: rel?.status ?? WatchStatus.NOT_STARTED,
     };
   });
+}
+
+export async function getCurrentFavouriteShowForUser(userId?: number): Promise<ShowSummary | null> {
+  if (!userId) {
+    return null;
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      currentFavourite: {
+        select: {
+          id: true,
+          title: true,
+          genre: true,
+          year: true,
+        },
+      },
+    },
+  });
+
+  return user?.currentFavourite ?? null;
+}
+
+export async function updateCurrentFavouriteShow(userId: number, showId: number): Promise<ShowSummary> {
+  const show = await prisma.show.findUnique({ where: { id: showId } });
+  if (!show) {
+    throw new Error("Show not found");
+  }
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      currentFavouriteId: showId,
+    },
+  });
+
+  return {
+    id: show.id,
+    title: show.title,
+    genre: show.genre,
+    year: show.year,
+  };
 }
 
 export async function updateShowHidden(userId: number, showId: number, isHidden: boolean): Promise<ShowListItem> {

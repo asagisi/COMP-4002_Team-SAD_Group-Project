@@ -1,5 +1,6 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { AuthBridge } from './auth/AuthBridge'
 import { Header } from './layout/header/header'
 import { Home } from './layout/pages/Home'
 import { ShowListPage } from './layout/pages/ShowListPage'
@@ -15,6 +16,7 @@ import { Footer } from './layout/footer/footer'
 function App() {
   return (
     <Router>
+      <AuthBridge />
       <div className="App">
         <Header />
         <main className="main-content">

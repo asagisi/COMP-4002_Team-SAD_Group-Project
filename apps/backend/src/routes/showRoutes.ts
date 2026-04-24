@@ -1,6 +1,14 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { getAuth } from "@clerk/express";
-import { deleteShowProgress, getShows, patchShowHidden, patchShowPreferences, patchShowProgress } from "../controllers/showController";
+import {
+  deleteShowProgress,
+  getCurrentFavouriteShow,
+  getShows,
+  patchCurrentFavouriteShow,
+  patchShowHidden,
+  patchShowPreferences,
+  patchShowProgress,
+} from "../controllers/showController";
 import { findOrCreateUser } from "../middleware/findOrCreateUser";
 import { validateHiddenPayload, validatePreferencesPayload, validateProgressPayload, validateShowIdParam } from "../middleware/showValidation";
 
@@ -16,6 +24,8 @@ function requireSignedIn(req: Request, res: Response, next: NextFunction): void 
 }
 
 router.get("/", findOrCreateUser, getShows);
+router.get("/current-favourite", findOrCreateUser, getCurrentFavouriteShow);
+router.patch("/current-favourite/:showId", requireSignedIn, findOrCreateUser, validateShowIdParam, patchCurrentFavouriteShow);
 
 router.patch("/:showId/hidden", requireSignedIn, findOrCreateUser, validateShowIdParam, validateHiddenPayload, patchShowHidden);
 router.patch("/:showId/preferences", requireSignedIn, findOrCreateUser, validateShowIdParam, validatePreferencesPayload, patchShowPreferences);

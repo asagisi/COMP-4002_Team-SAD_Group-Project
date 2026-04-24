@@ -2,6 +2,7 @@ import type { Show } from "../../../../shared/types/Show";
 import { shows } from "../../../backend/data/shows";
 
 export type ApiWatchStatus = "NOT_STARTED" | "WATCHING" | "FINISHED";
+type AuthTokenProvider = () => Promise<string | null>;
 
 export type ShowWithPrefs = Show & {
     isHidden: boolean;
@@ -12,11 +13,27 @@ export type ShowWithPrefs = Show & {
     status: ApiWatchStatus;
 };
 
-const DEFAULT_USER_ID = 1;
 const API_BASE = `${import.meta.env.VITE_API_URL || ""}/api/v1/shows`;
 const SHOW_CACHE_KEY = "team-sad-shows-cache-v1";
 
 let showCache: ShowWithPrefs[] | null = null;
+let authTokenProvider: AuthTokenProvider | null = null;
+
+export function setShowRepositoryAuthTokenProvider(
+    provider: AuthTokenProvider | null
+): void {
+    authTokenProvider = provider;
+}
+
+export function resetShowRepositoryCache(): void {
+    showCache = null;
+
+    if (typeof window === "undefined") {
+        return;
+    }
+
+    window.localStorage.removeItem(SHOW_CACHE_KEY);
+}
 
 function loadShowCache(): ShowWithPrefs[] | null {
     if (showCache) {
@@ -64,7 +81,7 @@ function upsertCachedShow(updated: ShowWithPrefs): void {
     saveShowCache(next);
 }
 
-const STATUS_MESSAGES: Record<number, string> = {
+export const STATUS_MESSAGES: Record<number, string> = {
     400: "That request doesn't look right. Please try again.",
     401: "Please sign in to make changes.",
     403: "You don't have permission to do that.",
@@ -80,6 +97,25 @@ function statusToFriendlyMessage(status: number): string {
     return "Something went wrong. Please try again.";
 }
 
+async function buildAuthHeaders(): Promise<Record<string, string>> {
+    const token = authTokenProvider ? await authTokenProvider() : null;
+
+    if (!token) {
+        return {};
+    }
+
+    return {
+        Authorization: `Bearer ${token}`,
+    };
+}
+
+async function buildJsonHeaders(): Promise<Record<string, string>> {
+    return {
+        "Content-Type": "application/json",
+        ...(await buildAuthHeaders()),
+    };
+}
+
 async function parseResponse<T>(response: Response): Promise<T> {
     if (response.ok) return response.json() as Promise<T>;
 
@@ -91,7 +127,10 @@ async function parseResponse<T>(response: Response): Promise<T> {
 
 async function safeFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
     try {
-        return await fetch(input, init);
+        return await fetch(input, {
+            credentials: "include",
+            ...init,
+        });
     } catch {
         throw new Error("Can't reach the server right now. Check your connection and try again.");
     }
@@ -117,12 +156,31 @@ export const showRepository = {
      * Retrieve all shows with user relationship data from backend
      */
     getAllShowsFromApi: async (): Promise<ShowWithPrefs[]> => {
-        const response = await safeFetch(`${API_BASE}?userId=${DEFAULT_USER_ID}`, {
+        const response = await safeFetch(API_BASE, {
             cache: "no-store",
+            headers: await buildAuthHeaders(),
         });
         const data = await parseResponse<ShowWithPrefs[]>(response);
         saveShowCache(data);
         return data;
+    },
+
+    getCurrentFavouriteShow: async (): Promise<Show | null> => {
+        const response = await safeFetch(`${API_BASE}/current-favourite`, {
+            cache: "no-store",
+            headers: await buildAuthHeaders(),
+        });
+
+        return parseResponse<Show | null>(response);
+    },
+
+    setCurrentFavouriteShow: async (showId: number): Promise<Show> => {
+        const response = await safeFetch(`${API_BASE}/current-favourite/${showId}`, {
+            method: "PATCH",
+            headers: await buildJsonHeaders(),
+        });
+
+        return parseResponse<Show>(response);
     },
 
     /**
@@ -131,11 +189,8 @@ export const showRepository = {
     setHidden: async (showId: number, isHidden: boolean): Promise<ShowWithPrefs> => {
         const response = await safeFetch(`${API_BASE}/${showId}/hidden`, {
             method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: await buildJsonHeaders(),
             body: JSON.stringify({
-                userId: DEFAULT_USER_ID,
                 isHidden,
             }),
         });
@@ -151,11 +206,8 @@ export const showRepository = {
     ): Promise<ShowWithPrefs> => {
         const response = await safeFetch(`${API_BASE}/${showId}/preferences`, {
             method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: await buildJsonHeaders(),
             body: JSON.stringify({
-                userId: DEFAULT_USER_ID,
                 ...payload,
             }),
         });
@@ -171,11 +223,8 @@ export const showRepository = {
     ): Promise<ShowWithPrefs> => {
         const response = await safeFetch(`${API_BASE}/${showId}/progress`, {
             method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: await buildJsonHeaders(),
             body: JSON.stringify({
-                userId: DEFAULT_USER_ID,
                 ...payload,
             }),
         });
@@ -188,12 +237,7 @@ export const showRepository = {
     clearWatchProgress: async (showId: number): Promise<ShowWithPrefs> => {
         const response = await safeFetch(`${API_BASE}/${showId}/progress`, {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                userId: DEFAULT_USER_ID,
-            }),
+            headers: await buildJsonHeaders(),
         });
 
         const data = await parseResponse<ShowWithPrefs>(response);
@@ -201,3 +245,5 @@ export const showRepository = {
         return data;
     },
 };
+
+export const AUTH_REQUIRED_MESSAGE = STATUS_MESSAGES[401];

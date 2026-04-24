@@ -1,6 +1,14 @@
 import { Request, Response } from "express";
 import { WatchStatus } from "@prisma/client";
-import { clearWatchProgress, getShowsForUser, updateShowHidden, updateShowPreferences, updateWatchProgress } from "../services/showService";
+import {
+  clearWatchProgress,
+  getCurrentFavouriteShowForUser,
+  getShowsForUser,
+  updateCurrentFavouriteShow,
+  updateShowHidden,
+  updateShowPreferences,
+  updateWatchProgress,
+} from "../services/showService";
 
 export async function getShows(req: Request, res: Response): Promise<void> {
   const userId: number | undefined = res.locals.userId;
@@ -11,6 +19,32 @@ export async function getShows(req: Request, res: Response): Promise<void> {
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed to fetch shows";
     res.status(500).json({ error: message });
+  }
+}
+
+export async function getCurrentFavouriteShow(req: Request, res: Response): Promise<void> {
+  const userId: number | undefined = res.locals.userId;
+
+  try {
+    const data = await getCurrentFavouriteShowForUser(userId);
+    res.json(data);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Failed to fetch current favourite show";
+    res.status(500).json({ error: message });
+  }
+}
+
+export async function patchCurrentFavouriteShow(req: Request, res: Response): Promise<void> {
+  const userId: number = res.locals.userId;
+  const showId = Number(req.params.showId);
+
+  try {
+    const data = await updateCurrentFavouriteShow(userId, showId);
+    res.json(data);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Failed to update current favourite show";
+    const status = message === "Show not found" ? 404 : 500;
+    res.status(status).json({ error: message });
   }
 }
 
