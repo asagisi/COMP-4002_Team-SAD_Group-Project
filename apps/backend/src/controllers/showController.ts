@@ -1,9 +1,17 @@
 import { Request, Response } from "express";
 import { WatchStatus } from "@prisma/client";
-import { clearWatchProgress, getShowsForUser, updateShowHidden, updateShowPreferences, updateWatchProgress } from "../services/showService";
+import {
+  clearWatchProgress,
+  getCurrentFavouriteShowForUser,
+  getShowsForUser,
+  updateCurrentFavouriteShow,
+  updateShowHidden,
+  updateShowPreferences,
+  updateWatchProgress,
+} from "../services/showService";
 
 export async function getShows(req: Request, res: Response): Promise<void> {
-  const userId = Number(req.query.userId);
+  const userId: number | undefined = res.locals.userId;
 
   try {
     const data = await getShowsForUser(userId);
@@ -14,8 +22,34 @@ export async function getShows(req: Request, res: Response): Promise<void> {
   }
 }
 
+export async function getCurrentFavouriteShow(req: Request, res: Response): Promise<void> {
+  const userId: number | undefined = res.locals.userId;
+
+  try {
+    const data = await getCurrentFavouriteShowForUser(userId);
+    res.json(data);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Failed to fetch current favourite show";
+    res.status(500).json({ error: message });
+  }
+}
+
+export async function patchCurrentFavouriteShow(req: Request, res: Response): Promise<void> {
+  const userId: number = res.locals.userId;
+  const showId = Number(req.params.showId);
+
+  try {
+    const data = await updateCurrentFavouriteShow(userId, showId);
+    res.json(data);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Failed to update current favourite show";
+    const status = message === "Show not found" ? 404 : 500;
+    res.status(status).json({ error: message });
+  }
+}
+
 export async function patchShowHidden(req: Request, res: Response): Promise<void> {
-  const userId = Number(req.body.userId);
+  const userId: number = res.locals.userId;
   const showId = Number(req.params.showId);
   const { isHidden } = req.body as { isHidden: boolean };
 
@@ -30,7 +64,7 @@ export async function patchShowHidden(req: Request, res: Response): Promise<void
 }
 
 export async function patchShowPreferences(req: Request, res: Response): Promise<void> {
-  const userId = Number(req.body.userId);
+  const userId: number = res.locals.userId;
   const showId = Number(req.params.showId);
   const { rating, isFavourite } = req.body as { rating?: number; isFavourite?: boolean };
 
@@ -45,7 +79,7 @@ export async function patchShowPreferences(req: Request, res: Response): Promise
 }
 
 export async function patchShowProgress(req: Request, res: Response): Promise<void> {
-  const userId = Number(req.body.userId);
+  const userId: number = res.locals.userId;
   const showId = Number(req.params.showId);
   const { currentEpisode, totalEpisodes, status } = req.body as {
     currentEpisode: number;
@@ -68,7 +102,7 @@ export async function patchShowProgress(req: Request, res: Response): Promise<vo
 }
 
 export async function deleteShowProgress(req: Request, res: Response): Promise<void> {
-  const userId = Number(req.body.userId);
+  const userId: number = res.locals.userId;
   const showId = Number(req.params.showId);
 
   try {

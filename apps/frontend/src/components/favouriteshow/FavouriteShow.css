@@ -30,7 +30,6 @@
 	outline: none;
 }
 
-
 .favourite-dropdown {
 	position: absolute;
 	top: 100%;
@@ -59,4 +58,9 @@
 .favourite-option:hover {
 	background: rgba(224, 224, 224, 0.08);
 	cursor: pointer;
+}
+
+.favourite-error {
+	font-size: 0.82rem;
+	color: #ffd1d1;
 }

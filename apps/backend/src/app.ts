@@ -1,12 +1,16 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
+import { clerkMiddleware } from '@clerk/express';
 import { getCorsConfig } from '../config/corsConfig';
 import showRoutes from './routes/showRoutes';
 
+dotenv.config();
+
 const app = express();
 
-// Apply CORS using dynamic config
 app.use(cors(getCorsConfig()));
+app.use(clerkMiddleware());
 
 // Middleware to parse JSON request bodies
 app.use(express.json());

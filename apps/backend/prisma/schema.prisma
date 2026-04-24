@@ -14,8 +14,11 @@ enum WatchStatus {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
-  userShow UserShow[]
+  id                 Int    @id @default(autoincrement())
+  clerkUserId        String @unique
+  currentFavourite   Show?  @relation("CurrentFavouriteShow", fields: [currentFavouriteId], references: [id], onDelete: SetNull)
+  currentFavouriteId Int?
+  userShow           UserShow[]
 }
 
 model Show {
@@ -25,7 +28,8 @@ model Show {
   year     Int
   episodes Int
 
-  userShow UserShow[]
+  currentFavouriteFor User[]   @relation("CurrentFavouriteShow")
+  userShow            UserShow[]
 }
 
 model UserShow {
